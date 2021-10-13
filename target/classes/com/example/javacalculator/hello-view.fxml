@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="413.0" style="-fx-border-color: ff6600; -fx-border-width: 5; -fx-background-color: rgb(37,37,37);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.HelloController">
+<AnchorPane maxHeight="725.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" style="-fx-border-color: ff6600; -fx-border-width: 0.5; -fx-background-color: rgb(37,37,37,0.7);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.HelloController">
    <children>
       <Label id="Title" contentDisplay="TOP" layoutX="21.0" layoutY="22.0" prefHeight="37.0" prefWidth="215.0" text="Orange Calculator" textFill="#ff6600">
          <font>
@@ -20,10 +18,6 @@
             <Glow level="0.88" />
          </effect>
       </Label>
-      <Pane layoutX="21.0" layoutY="73.0" prefHeight="174.0" prefWidth="372.0" style="-fx-background-color: #dbdedd; -fx-border-color: ff6600; -fx-border-width: 8; -fx-border-radius: 8 50 8 50; -fx-background-radius: 15 60 15 60;">
-         <effect>
-            <Bloom threshold="0.51" />
-         </effect></Pane>
       <Line endX="388.0" endY="59.0" fill="#ff6600" startX="21.0" startY="59.0" stroke="#ff6600" />
       <Label id="Title" contentDisplay="TOP" layoutX="281.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.01-alpha" textFill="#ff6600">
          <font>
@@ -33,12 +27,9 @@
             <Glow level="0.88" />
          </effect>
       </Label>
+      <Pane layoutX="12.0" layoutY="344.0" prefHeight="43.0" prefWidth="389.0" style="-fx-background-color: rgb(40,40,40,0.5);" />
    </children>
    <effect>
-      <DropShadow>
-         <color>
-            <Color opacity="0.800000011920929" />
-         </color>
-      </DropShadow>
+      <DropShadow height="53.24" radius="24.655" width="47.38" />
    </effect>
 </AnchorPane>
