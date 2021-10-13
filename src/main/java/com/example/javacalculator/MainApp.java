@@ -25,15 +25,15 @@ class Calculator {
     }
 }
 
-public class HelloApplication extends Application {
+public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         // Max-min height and width
-        stage.setMinHeight(725.0);
+        stage.setMinHeight(765.0);
         stage.setMinWidth(430.0);
-        stage.setMaxHeight(725.0);
+        stage.setMaxHeight(765.0);
         stage.setMaxWidth(430.0);
         //
         stage.setOpacity(0.985);

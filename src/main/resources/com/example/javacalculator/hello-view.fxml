@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="725.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.HelloController">
+<AnchorPane maxHeight="725.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.Controller">
    <children>
       <Label id="Title" contentDisplay="TOP" layoutX="21.0" layoutY="22.0" prefHeight="37.0" prefWidth="215.0" text="Orange Calculator" textFill="#ff6600">
          <font>
