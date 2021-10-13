@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="725.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.Controller">
+<AnchorPane maxHeight="725.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.Controller">
    <children>
       <Label id="Title" contentDisplay="TOP" layoutX="21.0" layoutY="22.0" prefHeight="37.0" prefWidth="215.0" text="Orange Calculator" textFill="#ff6600">
          <font>
@@ -24,7 +24,7 @@
          </effect>
       </Label>
       <Line endX="388.0" endY="59.0" fill="#ff6600" startX="21.0" startY="59.0" stroke="#ff6600" />
-      <Label id="Title" contentDisplay="TOP" layoutX="281.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.02-alpha" textFill="#ff6600">
+      <Label id="Title" contentDisplay="TOP" layoutX="271.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.02-alpha" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="24.0" />
          </font>
@@ -32,8 +32,8 @@
             <Glow level="0.88" />
          </effect>
       </Label>
-      <Pane layoutX="14.0" layoutY="356.0" prefHeight="43.0" prefWidth="389.0" style="-fx-background-color: rgb(40,40,40,0.5);" />
-      <Button alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="·" textAlignment="CENTER" textFill="#ff6600" wrapText="true">
+      <Pane layoutX="14.0" layoutY="347.0" prefHeight="52.0" prefWidth="389.0" style="-fx-background-color: rgb(40,40,40,0.5);" />
+      <Button alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="·" textAlignment="CENTER" textFill="#ff6600" wrapText="true">
          <font>
             <Font name="Microsoft JhengHei Light" size="32.0" />
          </font>
@@ -41,7 +41,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="12.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="0" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="12.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="0" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -49,7 +49,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="208.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="⁺∕₋" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="208.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="⁺∕₋" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="28.0" />
          </font>
@@ -57,7 +57,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="306.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="=" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="306.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="=" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="25.0" />
          </font>
@@ -65,7 +65,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="110.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="2" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="110.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="2" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -73,7 +73,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="12.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="1" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="12.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="1" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -81,7 +81,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="208.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="3" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="208.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="3" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -89,7 +89,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="306.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="+" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="306.0" layoutY="596.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="+" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -97,7 +97,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="110.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="5" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="110.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="5" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -105,7 +105,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="12.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="4" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="12.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="4" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -113,7 +113,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="208.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="6" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="208.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="6" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -121,7 +121,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="306.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="-" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="306.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="-" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="25.0" />
          </font>
@@ -129,7 +129,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="110.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="8" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="110.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="8" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -137,7 +137,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="12.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="7" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="12.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="7" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -145,7 +145,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="208.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="9" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="208.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(30,30,30,0.5);" styleClass="all_buttons" text="9" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -153,7 +153,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="306.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="×" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="306.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="×" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -161,7 +161,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="CE" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="110.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="CE" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -169,7 +169,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="208.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="C" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="208.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="C" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -177,7 +177,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="306.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" text="÷" textAlignment="CENTER" textFill="#ff6600">
+      <Button layoutX="306.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: rgb(40,40,40,0.5);" styleClass="all_buttons" text="÷" textAlignment="CENTER" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -185,7 +185,7 @@
             <Glow level="0.88" />
          </effect>
       </Button>
-      <Button layoutX="12.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: #ffc000;" textAlignment="CENTER" textFill="#26262680">
+      <Button layoutX="12.0" layoutY="407.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" style="-fx-background-color: #ffc000;" styleClass="second_button" textAlignment="CENTER" textFill="#26262680">
          <font>
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
@@ -198,7 +198,7 @@
                   <Glow level="1.0" />
                </effect>
                <graphic>
-                  <Label alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="17.0" text="2" textFill="#28282880">
+                  <Label alignment="TOP_RIGHT" contentDisplay="TEXT_ONLY" prefHeight="36.0" prefWidth="17.0" text="2" textFill="#28282880">
                      <font>
                         <Font name="Microsoft JhengHei Light" size="23.0" />
                      </font>

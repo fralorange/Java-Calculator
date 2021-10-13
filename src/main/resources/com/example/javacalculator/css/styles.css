@@ -1,0 +1,11 @@
+.all_buttons:hover{
+    -fx-border-width: 0 0 0 3;
+    -fx-background-color: rgb(200,200,200,0.4);
+    -fx-opacity: 0.5;
+}
+
+.second_button:hover{
+    -fx-border-width: 0 0 0 3;
+    -fx-background-color:  #fff444;
+    -fx-opacity: 0.7;
+}
