@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.io.IOException;
 
 class Calculator {
@@ -30,7 +30,12 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        // Max-min height and width
+        stage.setMinHeight(725.0);
+        stage.setMinWidth(430.0);
+        stage.setMaxHeight(725.0);
+        stage.setMaxWidth(430.0);
+        //
         stage.setScene(scene);
         stage.show();
     }
