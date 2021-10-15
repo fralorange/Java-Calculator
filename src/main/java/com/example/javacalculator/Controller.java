@@ -121,7 +121,6 @@ public class Controller {
         digitValueString.setText(String.valueOf(result));
         buttonDigitValue = "";
     }
-
     @FXML
     void initialize() {
         one.setOnAction(this::onButtonClick);
@@ -136,8 +135,6 @@ public class Controller {
         zero.setOnAction(this::onButtonClick);
         CE.setOnAction(this::onCEClick);
         C.setOnAction(this::onCClick);
-        // TODO сделать чтобы можно было менять оператор без ошибки
-        // TODO сделать чтобы можно было к результату обращаться с помощью операторов
         operator_plus.setOnAction(event -> {
             addBool = true;
             subBool = false;
@@ -171,7 +168,6 @@ public class Controller {
             operand2 = true;
         });
         equals.setOnAction(this::onEqualsClick);
-
     }
 
 }

@@ -1,11 +1,42 @@
-.all_buttons:hover{
+.num_buttons{
+    -fx-background-color: rgb(30,30,30,0.5);
+}
+
+.num_buttons:hover{
     -fx-border-width: 0 0 0 3;
-    -fx-background-color: rgb(200,200,200,0.4);
+    -fx-background-color: rgb(67,67,67,0.4);
     -fx-opacity: 0.5;
+}
+
+.num_buttons:pressed{
+    -fx-background-color: radial-gradient(radius 500%, rgb(77,77,77,0.4), derive(rgb(77,77,77,0.4), -200%), derive(rgb(77,77,77,0.4), -200%));
+}
+
+.operator_buttons{
+    -fx-background-color: rgb(40,40,40,0.5);
+}
+
+.operator_buttons:hover{
+    -fx-border-width: 0 0 0 3;
+    -fx-background-color: rgb(77,77,77,0.4);
+    -fx-opacity: 0.5;
+}
+
+.operator_buttons:pressed{
+    -fx-background-color: radial-gradient(radius 500%, rgb(87,87,87,0.4), derive(rgb(87,87,87,0.4), -200%), derive(rgb(87,87,87,0.4), -200%));
+}
+
+.second_button{
+    -fx-background-color: #ff6600;
 }
 
 .second_button:hover{
     -fx-border-width: 0 0 0 3;
-    -fx-background-color:  #fff444;
-    -fx-opacity: 0.7;
+    -fx-background-color:  #ffcc66;
+    -fx-opacity: 0.9;
+}
+
+.second_button:pressed{
+    -fx-background-color:  #ee7711;
+    -fx-opacity: 0.4;
 }
