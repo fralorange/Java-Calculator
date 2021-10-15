@@ -10,7 +10,9 @@ public class Controller {
     boolean subBool = false;
     boolean divBool = false;
     boolean mulBool = false;
-    double FinalValue = 0.0;
+    boolean operand2 = false;
+    double operand = 0.0;
+    double result = 0.0;
 
 
     @FXML
@@ -80,31 +82,44 @@ public class Controller {
 
 
     private void onButtonClick(ActionEvent event) {
+        if (operand2) {
+            buttonDigitValue = "";
+            operand2 = false;
+        }
         buttonDigitValue += ((Button) event.getSource()).getText();
         digitValueString.setText(buttonDigitValue);
     }
 
     private void onCEClick(ActionEvent event) {
         buttonDigitValue = "";
+        result = 0.0;
         digitValueString.setText("0");
     }
 
     private void onCClick(ActionEvent event) {
         buttonDigitValue = "";
+        addBool = false;
+        subBool = false;
+        divBool = false;
+        mulBool = false;
+        operand2 = false;
+        operand = 0.0;
+        result = 0.0;
         digitValueString.setText("0");
     }
 
     private void onEqualsClick(ActionEvent event) {
         if (addBool) {
-            digitValueString.setText(String.valueOf(FinalValue+Double.parseDouble(buttonDigitValue)));
+            result = operand + Double.parseDouble(buttonDigitValue);
         } else if (subBool) {
-            digitValueString.setText(String.valueOf(FinalValue-Double.parseDouble(buttonDigitValue)));
+            result = operand - Double.parseDouble(buttonDigitValue);
         } else if (mulBool) {
-            digitValueString.setText(String.valueOf(FinalValue*Double.parseDouble(buttonDigitValue)));
+            result = operand * Double.parseDouble(buttonDigitValue);
         } else if (divBool) {
-            digitValueString.setText(String.valueOf(FinalValue/Double.parseDouble(buttonDigitValue)));
+            result = operand / Double.parseDouble(buttonDigitValue);
         }
-        //buttonDigitValue = "";
+        digitValueString.setText(String.valueOf(result));
+        buttonDigitValue = "";
     }
 
     @FXML
@@ -120,6 +135,7 @@ public class Controller {
         nine.setOnAction(this::onButtonClick);
         zero.setOnAction(this::onButtonClick);
         CE.setOnAction(this::onCEClick);
+        C.setOnAction(this::onCClick);
         // TODO сделать чтобы можно было менять оператор без ошибки
         // TODO сделать чтобы можно было к результату обращаться с помощью операторов
         operator_plus.setOnAction(event -> {
@@ -127,36 +143,32 @@ public class Controller {
             subBool = false;
             mulBool = false;
             divBool = false;
-            FinalValue = Double.parseDouble(buttonDigitValue);
-            prevDigitValue = buttonDigitValue;
-            buttonDigitValue = "";
+            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand2 = true;
         });
         operator_minus.setOnAction(event -> {
             addBool = false;
             subBool = true;
             mulBool = false;
             divBool = false;
-            FinalValue = Double.parseDouble(buttonDigitValue);
-            prevDigitValue = buttonDigitValue;
-            buttonDigitValue = "";
+            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand2 = true;
         });
         operator_multiply.setOnAction(event -> {
             addBool = false;
             subBool = false;
             mulBool = true;
             divBool = false;
-            FinalValue = Double.parseDouble(buttonDigitValue);
-            prevDigitValue = buttonDigitValue;
-            buttonDigitValue = "";
+            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand2 = true;
         });
         operator_divide.setOnAction(event -> {
             addBool = false;
             subBool = false;
             mulBool = false;
             divBool = true;
-            FinalValue = Double.parseDouble(buttonDigitValue);
-            prevDigitValue = buttonDigitValue;
-            buttonDigitValue = "";
+            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand2 = true;
         });
         equals.setOnAction(this::onEqualsClick);
 
