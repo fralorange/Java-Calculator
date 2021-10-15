@@ -24,7 +24,7 @@
          </effect>
       </Label>
       <Line endX="388.0" endY="59.0" fill="#ff6600" startX="21.0" startY="59.0" stroke="#ff6600" />
-      <Label id="Title" contentDisplay="TOP" layoutX="271.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.04-alpha" textFill="#ff6600">
+      <Label id="Title" contentDisplay="TOP" layoutX="271.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.05-alpha" textFill="#ff6600">
          <font>
             <Font name="Microsoft JhengHei Light" size="24.0" />
          </font>
