@@ -13,6 +13,7 @@ public class Controller {
     boolean operand2 = false;
     double operand = 0.0;
     double result = 0.0;
+    boolean FloatingPoint = false;
 
 
     @FXML
@@ -80,8 +81,10 @@ public class Controller {
     @FXML
     private Button equals;
 
-
     private void onButtonClick(ActionEvent event) {
+        if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
+            return;
+        if (buttonDigitValue == "0") buttonDigitValue = "";
         if (operand2) {
             buttonDigitValue = "";
             operand2 = false;
@@ -121,6 +124,13 @@ public class Controller {
         digitValueString.setText(String.valueOf(result));
         buttonDigitValue = "";
     }
+
+    private void negate(ActionEvent event) {
+        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0"))) ? String.valueOf(Double.parseDouble(digitValueString.getText()) * -1) : "0";
+        digitValueString.setText(buttonDigitValue);
+        result = 0;
+    }
+
     @FXML
     void initialize() {
         one.setOnAction(this::onButtonClick);
@@ -168,6 +178,7 @@ public class Controller {
             operand2 = true;
         });
         equals.setOnAction(this::onEqualsClick);
+        plusminus.setOnAction(this::negate);
     }
 
 }

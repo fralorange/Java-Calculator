@@ -190,17 +190,17 @@
             <Font name="Microsoft JhengHei Light" size="23.0" />
          </font>
          <graphic>
-            <Label alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="37.0" text="nd" textFill="#28282880">
+            <Label alignment="TOP_RIGHT" prefHeight="39.0" prefWidth="50.0" text="nd" textFill="#00000080">
                <font>
-                  <Font name="Microsoft JhengHei Light" size="13.0" />
+                  <Font name="Microsoft JhengHei Light" size="19.0" />
                </font>
                <effect>
                   <Glow level="1.0" />
                </effect>
                <graphic>
-                  <Label alignment="TOP_RIGHT" contentDisplay="TEXT_ONLY" prefHeight="36.0" prefWidth="17.0" text="2" textFill="#28282880">
+                  <Label alignment="TOP_RIGHT" contentDisplay="TEXT_ONLY" prefHeight="36.0" prefWidth="17.0" text="2" textFill="#00000080">
                      <font>
-                        <Font name="Microsoft JhengHei Light" size="23.0" />
+                        <Font name="Microsoft JhengHei Light" size="28.0" />
                      </font>
                      <effect>
                         <Glow level="1.0" />
