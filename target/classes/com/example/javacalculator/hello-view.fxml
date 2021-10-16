@@ -33,9 +33,9 @@
             </effect>
         </Label>
         <Pane layoutX="10.0" layoutY="348.0" prefHeight="52.0" prefWidth="389.0" style="-fx-background-color: rgb(40,40,40,0.5);" />
-        <Button id="dot" fx:id="dot" alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="num_buttons" text="·" textAlignment="CENTER" textFill="#ff6600" wrapText="true">
+        <Button id="dot" fx:id="dot" alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="num_buttons" text="." textAlignment="CENTER" textFill="#ff6600" wrapText="true">
             <font>
-                <Font name="Microsoft JhengHei Light" size="32.0" />
+                <Font name="Microsoft JhengHei Light" size="25.0" />
             </font>
             <effect>
                 <Glow level="0.88" />

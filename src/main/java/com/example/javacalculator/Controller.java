@@ -93,6 +93,7 @@ public class Controller {
     }
 
     private void onCEClick(ActionEvent event) {
+        FloatingPoint = false;
         buttonDigitValue = "";
         result = 0.0;
         digitValueString.setText("0");
@@ -105,6 +106,7 @@ public class Controller {
         divBool = false;
         mulBool = false;
         operand2 = false;
+        FloatingPoint = false;
         operand = 0.0;
         result = 0.0;
         digitValueString.setText("0");
@@ -122,12 +124,21 @@ public class Controller {
         }
         digitValueString.setText(String.valueOf(result));
         buttonDigitValue = "";
+        FloatingPoint = false;
     }
 
     private void negate(ActionEvent event) {
-        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0"))) ? String.valueOf(Double.parseDouble(digitValueString.getText()) * -1) : "0";
+        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0")) && (!digitValueString.getText().equals("0.0"))) ? String.valueOf(Double.parseDouble(digitValueString.getText()) * -1) : "0";
         digitValueString.setText(buttonDigitValue);
         result = 0;
+    }
+
+    public void OnDotClick(ActionEvent event) {
+        if (!FloatingPoint) {
+            buttonDigitValue += ".";
+            digitValueString.setText(buttonDigitValue);
+            FloatingPoint = true;
+        }
     }
 
     @FXML
@@ -151,6 +162,7 @@ public class Controller {
             divBool = false;
             operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
             operand2 = true;
+            FloatingPoint = false;
         });
         operator_minus.setOnAction(event -> {
             addBool = false;
@@ -159,6 +171,7 @@ public class Controller {
             divBool = false;
             operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
             operand2 = true;
+            FloatingPoint = false;
         });
         operator_multiply.setOnAction(event -> {
             addBool = false;
@@ -167,6 +180,7 @@ public class Controller {
             divBool = false;
             operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
             operand2 = true;
+            FloatingPoint = false;
         });
         operator_divide.setOnAction(event -> {
             addBool = false;
@@ -175,9 +189,11 @@ public class Controller {
             divBool = true;
             operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
             operand2 = true;
+            FloatingPoint = false;
         });
         equals.setOnAction(this::onEqualsClick);
         plusminus.setOnAction(this::negate);
+        dot.setOnAction(this::OnDotClick);
     }
 
 }

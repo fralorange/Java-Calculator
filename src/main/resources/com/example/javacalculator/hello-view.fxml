@@ -24,7 +24,7 @@
             </effect>
         </Label>
         <Line endX="388.0" endY="59.0" fill="#ff6600" startX="21.0" startY="59.0" stroke="#ff6600" />
-        <Label id="Title" contentDisplay="TOP" layoutX="271.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.05-alpha" textFill="#ff6600">
+        <Label id="Title" contentDisplay="TOP" layoutX="271.0" layoutY="22.0" prefHeight="37.0" prefWidth="118.0" text="0.06-alpha" textFill="#ff6600">
             <font>
                 <Font name="Microsoft JhengHei Light" size="24.0" />
             </font>
@@ -33,9 +33,9 @@
             </effect>
         </Label>
         <Pane layoutX="10.0" layoutY="348.0" prefHeight="52.0" prefWidth="389.0" style="-fx-background-color: rgb(40,40,40,0.5);" />
-        <Button id="dot" fx:id="dot" alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="num_buttons" text="·" textAlignment="CENTER" textFill="#ff6600" wrapText="true">
+        <Button id="dot" fx:id="dot" alignment="TOP_CENTER" graphicTextGap="0.0" layoutX="110.0" layoutY="659.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="num_buttons" text="." textAlignment="CENTER" textFill="#ff6600" wrapText="true">
             <font>
-                <Font name="Microsoft JhengHei Light" size="32.0" />
+                <Font name="Microsoft JhengHei Light" size="25.0" />
             </font>
             <effect>
                 <Glow level="0.88" />
