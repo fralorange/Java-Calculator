@@ -15,7 +15,6 @@ public class Controller {
     double result = 0.0;
     boolean FloatingPoint = false;
 
-
     @FXML
     private Button ate;
 
