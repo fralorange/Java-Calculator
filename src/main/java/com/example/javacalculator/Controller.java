@@ -5,15 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.math.BigDecimal;
+
 public class Controller {
     boolean addBool = false;
     boolean subBool = false;
     boolean divBool = false;
     boolean mulBool = false;
     boolean operand2 = false;
-    double operand = 0.0;
-    double result = 0.0;
     boolean FloatingPoint = false;
+    BigDecimal operand = new BigDecimal(0.0);
+    BigDecimal result =  new BigDecimal(0.0);
+
 
     @FXML
     private Button ate;
@@ -83,9 +86,10 @@ public class Controller {
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
-        if (buttonDigitValue == "0") buttonDigitValue = "";
+        if (buttonDigitValue.equals("0")) buttonDigitValue = "";
         if (operand2) {
             buttonDigitValue = "";
+            FloatingPoint = false;
             operand2 = false;
         }
         buttonDigitValue += ((Button) event.getSource()).getText();
@@ -95,7 +99,7 @@ public class Controller {
     private void onCEClick(ActionEvent event) {
         FloatingPoint = false;
         buttonDigitValue = "";
-        result = 0.0;
+        result = BigDecimal.valueOf(0.0);
         digitValueString.setText("0");
     }
 
@@ -107,20 +111,20 @@ public class Controller {
         mulBool = false;
         operand2 = false;
         FloatingPoint = false;
-        operand = 0.0;
-        result = 0.0;
+        operand = BigDecimal.valueOf(0.0);
+        result = BigDecimal.valueOf(0.0);
         digitValueString.setText("0");
     }
 
     private void onEqualsClick(ActionEvent event) {
         if (addBool) {
-            result = operand + Double.parseDouble(buttonDigitValue);
+            result = operand.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (subBool) {
-            result = operand - Double.parseDouble(buttonDigitValue);
+            result = operand.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (mulBool) {
-            result = operand * Double.parseDouble(buttonDigitValue);
+            result = operand.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (divBool) {
-            result = operand / Double.parseDouble(buttonDigitValue);
+            result = operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         }
         digitValueString.setText(String.valueOf(result));
         buttonDigitValue = "";
@@ -130,12 +134,12 @@ public class Controller {
     private void negate(ActionEvent event) {
         buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0")) && (!digitValueString.getText().equals("0.0"))) ? String.valueOf(Double.parseDouble(digitValueString.getText()) * -1) : "0";
         digitValueString.setText(buttonDigitValue);
-        result = 0;
+        result = BigDecimal.valueOf(0.0);
     }
 
     public void OnDotClick(ActionEvent event) {
         if (!FloatingPoint) {
-            buttonDigitValue += ".";
+            buttonDigitValue += (buttonDigitValue != "") ? "." : "0.";
             digitValueString.setText(buttonDigitValue);
             FloatingPoint = true;
         }
@@ -160,36 +164,32 @@ public class Controller {
             subBool = false;
             mulBool = false;
             divBool = false;
-            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
-            FloatingPoint = false;
         });
         operator_minus.setOnAction(event -> {
             addBool = false;
             subBool = true;
             mulBool = false;
             divBool = false;
-            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
-            FloatingPoint = false;
         });
         operator_multiply.setOnAction(event -> {
             addBool = false;
             subBool = false;
             mulBool = true;
             divBool = false;
-            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
-            FloatingPoint = false;
         });
         operator_divide.setOnAction(event -> {
             addBool = false;
             subBool = false;
             mulBool = false;
             divBool = true;
-            operand = (result != 0) ? result : Double.parseDouble(buttonDigitValue);
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
-            FloatingPoint = false;
         });
         equals.setOnAction(this::onEqualsClick);
         plusminus.setOnAction(this::negate);
