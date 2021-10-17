@@ -1,7 +1,7 @@
 <h1>Java-Calculator<h1>
 Working features:
 <ol>
-  <li>Working 0-9 butons</li>
+  <li>Working 0-9 buttons</li>
   <li>Working negate button (+/-)</li>
   <li>Working floating point button</li>
   <li>Working operators (+,-,*,/) </li>
