@@ -40,3 +40,27 @@
     -fx-background-color:  #ee7711;
     -fx-opacity: 0.4;
 }
+
+.close{
+    -fx-background-color: transparent;
+}
+
+.close:hover{
+    -fx-background-color: crimson;
+}
+
+.close:pressed{
+    -fx-background-color: red;
+}
+
+.minus{
+    -fx-background-color: transparent;
+}
+
+.minus:hover{
+    -fx-background-color: DarkGrey;
+}
+
+.minus:pressed{
+    -fx-background-color: Gray;
+}

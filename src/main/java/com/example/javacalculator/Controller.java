@@ -2,8 +2,11 @@ package com.example.javacalculator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 
@@ -15,7 +18,7 @@ public class Controller {
     boolean operand2 = false;
     boolean FloatingPoint = false;
     BigDecimal operand = new BigDecimal(0.0);
-    BigDecimal result =  new BigDecimal(0.0);
+    BigDecimal result = new BigDecimal(0.0);
 
 
     @FXML
@@ -83,6 +86,12 @@ public class Controller {
     @FXML
     private Button equals;
 
+    @FXML
+    private Button close;
+
+    @FXML
+    private Button minus;
+
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
@@ -137,12 +146,39 @@ public class Controller {
         result = BigDecimal.valueOf(0.0);
     }
 
-    public void OnDotClick(ActionEvent event) {
+    private void OnDotClick(ActionEvent event) {
         if (!FloatingPoint) {
             buttonDigitValue += (buttonDigitValue != "") ? "." : "0.";
             digitValueString.setText(buttonDigitValue);
             FloatingPoint = true;
         }
+    }
+
+    double x,y;
+
+    @FXML
+    private void Dragged(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setX(event.getScreenX() - x);
+        stage.setY(event.getScreenY() - y);
+    }
+
+    @FXML
+    private void Pressed(MouseEvent event) {
+        x = event.getSceneX();
+        y = event.getSceneY();
+    }
+
+    @FXML
+    private void Close(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void Min(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 
     @FXML
