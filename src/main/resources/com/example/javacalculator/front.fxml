@@ -16,7 +16,6 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="798.0" maxWidth="413.0" minHeight="725.0" minWidth="413.0" prefHeight="758.0" prefWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.Controller">
     <children>
         <Label id="Title" contentDisplay="TOP" layoutX="21.0" layoutY="55.0" prefHeight="37.0" prefWidth="215.0" text="Orange Calculator" textFill="#ff6600">
@@ -241,7 +240,7 @@
                 <Font name="Microsoft JhengHei Light" size="14.0" />
             </font>
         </Label>
-      <HBox alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#Dragged" onMousePressed="#Pressed" opacity="0.5" prefHeight="37.0" prefWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.7);" stylesheets="@css/styles.css">
+      <HBox alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#Dragged" onMousePressed="#Pressed" opacity="0.5" prefHeight="37.0" prefWidth="413.0" style="-fx-background-color: rgb(37,37,37,0.04);" stylesheets="@css/styles.css">
          <effect>
             <DropShadow height="19.665" radius="8.931249999999999" width="18.06" />
          </effect>
