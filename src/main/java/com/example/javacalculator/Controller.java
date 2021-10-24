@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
+import javafx.animation.TranslateTransition;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 
 import java.math.BigDecimal;
 
@@ -18,6 +21,7 @@ public class Controller {
     boolean mulBool = false;
     boolean operand2 = false;
     boolean FloatingPoint = false;
+    boolean SecondFunc = false;
     BigDecimal operand = new BigDecimal(0.0);
     BigDecimal result = new BigDecimal(0.0);
 
@@ -96,6 +100,9 @@ public class Controller {
     @FXML
     private AnchorPane main;
 
+    @FXML
+    private Button SecF;
+
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
@@ -158,8 +165,6 @@ public class Controller {
             FloatingPoint = true;
         }
     }
-
-    
 
     double x,y;
 
@@ -238,6 +243,13 @@ public class Controller {
         equals.setOnAction(this::onEqualsClick);
         plusminus.setOnAction(this::negate);
         dot.setOnAction(this::OnDotClick);
+        SecF.setOnAction(event -> {
+            if (SecondFunc) {
+                SecondFunc = false;
+            } else {
+                SecondFunc = true;
+            }
+        });
     }
 
 }
