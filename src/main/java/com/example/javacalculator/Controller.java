@@ -146,9 +146,9 @@ public class Controller {
     }
 
     private void negate(ActionEvent event) {
-        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0")) && (!digitValueString.getText().equals("0.0"))) ? String.valueOf(Double.parseDouble(digitValueString.getText()) * -1) : "0";
+        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0"))) ? BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).negate().stripTrailingZeros().toPlainString() : "0";
         digitValueString.setText(buttonDigitValue);
-        result = BigDecimal.valueOf(0.0);
+        result = BigDecimal.valueOf(0);
     }
 
     private void OnDotClick(ActionEvent event) {
