@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
 import java.math.BigDecimal;
 
@@ -92,6 +93,9 @@ public class Controller {
     @FXML
     private Button minus;
 
+    @FXML
+    private AnchorPane main;
+
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
@@ -125,6 +129,7 @@ public class Controller {
         digitValueString.setText("0");
     }
 
+
     private void onEqualsClick(ActionEvent event) {
         if (addBool) {
             result = operand.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
@@ -135,7 +140,7 @@ public class Controller {
         } else if (divBool) {
             result = operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         }
-        digitValueString.setText(String.valueOf(result));
+        digitValueString.setText((result.stripTrailingZeros()).toPlainString());
         buttonDigitValue = "";
         FloatingPoint = false;
     }
@@ -153,6 +158,8 @@ public class Controller {
             FloatingPoint = true;
         }
     }
+
+    
 
     double x,y;
 
@@ -180,6 +187,7 @@ public class Controller {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
+
 
     @FXML
     void initialize() {
