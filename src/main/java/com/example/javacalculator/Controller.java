@@ -98,10 +98,14 @@ public class Controller {
     private Button minus;
 
     @FXML
-    private AnchorPane main;
+    private AnchorPane mainSec;
 
     @FXML
     private Button SecF;
+
+    @FXML
+    private Button SecFend;
+
 
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
@@ -164,6 +168,29 @@ public class Controller {
             digitValueString.setText(buttonDigitValue);
             FloatingPoint = true;
         }
+    }
+
+    private void OnSecondFunctionClick(ActionEvent event) {
+        Duration dur = Duration.seconds(0.4);
+        TranslateTransition trans = new TranslateTransition();
+        FadeTransition fade = new FadeTransition();
+        trans.setDuration(dur);
+        fade.setDuration(dur);
+        trans.setNode(mainSec);
+        fade.setNode(mainSec);
+        if (SecondFunc) {
+            trans.setToY(0);
+            fade.setToValue(0);
+            trans.play();
+            fade.play();
+        } else {
+            trans.setToY(-185);
+            fade.setToValue(1.0);
+            trans.play();
+            fade.play();
+        }
+        SecondFunc = !SecondFunc;
+        mainSec.setDisable(!mainSec.isDisable());
     }
 
     double x,y;
@@ -243,13 +270,8 @@ public class Controller {
         equals.setOnAction(this::onEqualsClick);
         plusminus.setOnAction(this::negate);
         dot.setOnAction(this::OnDotClick);
-        SecF.setOnAction(event -> {
-            if (SecondFunc) {
-                SecondFunc = false;
-            } else {
-                SecondFunc = true;
-            }
-        });
+        SecF.setOnAction(this::OnSecondFunctionClick);
+        SecFend.setOnAction(this::OnSecondFunctionClick);
     }
 
 }
