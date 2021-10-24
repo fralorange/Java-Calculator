@@ -181,14 +181,12 @@ public class Controller {
         if (SecondFunc) {
             trans.setToY(0);
             fade.setToValue(0);
-            trans.play();
-            fade.play();
         } else {
             trans.setToY(-185);
             fade.setToValue(1.0);
-            trans.play();
-            fade.play();
         }
+        trans.play();
+        fade.play();
         SecondFunc = !SecondFunc;
         mainSec.setDisable(!mainSec.isDisable());
     }
