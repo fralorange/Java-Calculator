@@ -15,6 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="798.0" maxWidth="733.0" minHeight="725.0" minWidth="300.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="758.0" prefWidth="413.0" style="-fx-background-color: rgb(0,0,0,0);" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javacalculator.Controller">
     <children>
@@ -276,9 +277,13 @@
                   <Insets bottom="5.0" left="5.0" top="7.0" />
                </padding>
             </HBox>
-            <AnchorPane fx:id="mainSec" disable="true" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="324.0" prefWidth="413.0" style="-fx-background-color: rgb(37,37,37,1);" AnchorPane.leftAnchor="0.0">
+            <AnchorPane fx:id="mainSec" disable="true" layoutX="1.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="324.0" prefWidth="413.0" style="-fx-background-color: rgb(37,37,37,1);">
                <effect>
-                  <DropShadow height="24.48" radius="14.532499999999999" width="35.65" />
+                  <DropShadow height="10.57" radius="4.46" width="9.27">
+                     <color>
+                        <Color red="0.15789473056793213" green="0.15789473056793213" blue="0.15789473056793213" />
+                     </color>
+                  </DropShadow>
                </effect>
                <children>
                   <Button fx:id="SecFend" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="second_button" textAlignment="CENTER" textFill="#26262680" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="5.0">
@@ -316,6 +321,168 @@
                            </bumpInput>
                         </Lighting>
                      </effect>
+                  </Button>
+                  <Button fx:id="equals2" layoutX="308.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="=" textAlignment="CENTER" textFill="#ff6600" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="257.0">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="leftbr" layoutX="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="(" textAlignment="CENTER" textFill="#ff6600" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="rightbr" layoutX="208.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text=")" textAlignment="CENTER" textFill="#ff6600" AnchorPane.leftAnchor="208.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="fact" layoutX="305.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="𝑛!" textAlignment="CENTER" textFill="#ff6600" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="equals212" layoutX="110.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="π" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="equals2112" layoutX="208.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="e" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="equals21111" layoutX="305.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="mod" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="19.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="square" layoutX="12.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="𝑥²" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="109.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="207.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="304.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="power" layoutX="11.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="𝑥ʸ" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="110.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="208.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="305.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="equals212111" layoutX="12.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Segoe UI Symbol" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="110.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button layoutX="208.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Microsoft JhengHei Light" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="equals2121111" layoutX="12.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
+                     <font>
+                        <Font name="Segoe UI Symbol" size="25.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.88" />
+                     </effect>
+                     <graphic>
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#ff6600" strokeType="OUTSIDE" strokeWidth="0.0" text="𝑦" textAlignment="CENTER" textOrigin="TOP" translateX="2.0" translateY="2.0" underline="true" wrappingWidth="1.0">
+                           <effect>
+                              <Glow level="0.85" />
+                           </effect>
+                           <font>
+                              <Font name="Microsoft JhengHei Light" size="16.0" />
+                           </font>
+                        </Text>
+                     </graphic>
                   </Button>
                </children>
             </AnchorPane>

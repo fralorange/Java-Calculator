@@ -1,15 +1,15 @@
 package com.example.javacalculator;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
-import javafx.animation.TranslateTransition;
-import javafx.animation.FadeTransition;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
@@ -24,7 +24,6 @@ public class Controller {
     boolean SecondFunc = false;
     BigDecimal operand = new BigDecimal(0.0);
     BigDecimal result = new BigDecimal(0.0);
-
 
     @FXML
     private Button ate;
@@ -92,12 +91,6 @@ public class Controller {
     private Button equals;
 
     @FXML
-    private Button close;
-
-    @FXML
-    private Button minus;
-
-    @FXML
     private AnchorPane mainSec;
 
     @FXML
@@ -105,6 +98,39 @@ public class Controller {
 
     @FXML
     private Button SecFend;
+
+    @FXML
+    private Button equals2;
+
+    @FXML
+    private Button ybaseroot;
+
+    @FXML
+    private Button squareroot;
+
+    @FXML
+    private Button square;
+
+    @FXML
+    private Button power;
+
+    @FXML
+    private Button mod;
+
+    @FXML
+    private Button pi;
+
+    @FXML
+    private Button exponent;
+
+    @FXML
+    private Button fact;
+
+    @FXML
+    private Button leftbr;
+
+    @FXML
+    private Button rightbr;
 
 
     private void onButtonClick(ActionEvent event) {
@@ -138,6 +164,8 @@ public class Controller {
         operand = BigDecimal.valueOf(0.0);
         result = BigDecimal.valueOf(0.0);
         digitValueString.setText("0");
+
+
     }
 
 
@@ -164,7 +192,7 @@ public class Controller {
 
     private void OnDotClick(ActionEvent event) {
         if (!FloatingPoint) {
-            buttonDigitValue += (buttonDigitValue != "") ? "." : "0.";
+            buttonDigitValue += (!buttonDigitValue.equals("")) ? "." : "0.";
             digitValueString.setText(buttonDigitValue);
             FloatingPoint = true;
         }
@@ -270,6 +298,21 @@ public class Controller {
         dot.setOnAction(this::OnDotClick);
         SecF.setOnAction(this::OnSecondFunctionClick);
         SecFend.setOnAction(this::OnSecondFunctionClick);
+        equals2.setOnAction(this::onEqualsClick);
+        fact.setOnAction(event -> {
+            if (digitValueString.getText().equals("0")) {
+                buttonDigitValue = "1";
+            } else {
+                buttonDigitValue = digitValueString.getText();
+                result = BigDecimal.valueOf(1);
+                for (int factor = 2; factor <= Integer.parseInt(buttonDigitValue); factor++) {
+                    result = result.multiply(BigDecimal.valueOf(factor));
+                }
+                buttonDigitValue = result.stripTrailingZeros().toPlainString();
+            }
+            digitValueString.setText(buttonDigitValue);
+            buttonDigitValue = "";
+        });
     }
 
 }
