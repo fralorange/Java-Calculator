@@ -354,7 +354,7 @@
                         <Glow level="0.88" />
                      </effect>
                   </Button>
-                  <Button fx:id="equals212" layoutX="110.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="π" textAlignment="CENTER" textFill="#ff6600">
+                  <Button fx:id="pi" layoutX="110.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="π" textAlignment="CENTER" textFill="#ff6600">
                      <font>
                         <Font name="Microsoft JhengHei Light" size="25.0" />
                      </font>
@@ -362,7 +362,7 @@
                         <Glow level="0.88" />
                      </effect>
                   </Button>
-                  <Button fx:id="equals2112" layoutX="208.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="e" textAlignment="CENTER" textFill="#ff6600">
+                  <Button fx:id="exponent" layoutX="208.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="e" textAlignment="CENTER" textFill="#ff6600">
                      <font>
                         <Font name="Microsoft JhengHei Light" size="25.0" />
                      </font>
@@ -370,7 +370,7 @@
                         <Glow level="0.88" />
                      </effect>
                   </Button>
-                  <Button fx:id="equals21111" layoutX="305.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="mod" textAlignment="CENTER" textFill="#ff6600">
+                  <Button fx:id="mod" layoutX="305.0" layoutY="68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="mod" textAlignment="CENTER" textFill="#ff6600">
                      <font>
                         <Font name="Microsoft JhengHei Light" size="19.0" />
                      </font>
@@ -442,7 +442,7 @@
                         <Glow level="0.88" />
                      </effect>
                   </Button>
-                  <Button fx:id="equals212111" layoutX="12.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
+                  <Button fx:id="squareroot" layoutX="12.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
                      <font>
                         <Font name="Segoe UI Symbol" size="25.0" />
                      </font>
@@ -466,7 +466,7 @@
                         <Glow level="0.88" />
                      </effect>
                   </Button>
-                  <Button fx:id="equals2121111" layoutX="12.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
+                  <Button fx:id="ybaseroot" layoutX="12.0" layoutY="257.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="91.0" styleClass="operator_buttons" text="√x" textAlignment="CENTER" textFill="#ff6600">
                      <font>
                         <Font name="Segoe UI Symbol" size="25.0" />
                      </font>
