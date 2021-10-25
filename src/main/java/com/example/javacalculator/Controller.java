@@ -13,12 +13,16 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+
+import ch.obermuhlner.math.big.BigDecimalMath;
 
 public class Controller {
     boolean addBool = false;
     boolean subBool = false;
     boolean divBool = false;
     boolean mulBool = false;
+    boolean powerBool = false;
     boolean operand2 = false;
     boolean FloatingPoint = false;
     boolean SecondFunc = false;
@@ -159,6 +163,7 @@ public class Controller {
         subBool = false;
         divBool = false;
         mulBool = false;
+        powerBool = false;
         operand2 = false;
         FloatingPoint = false;
         operand = BigDecimal.valueOf(0.0);
@@ -178,6 +183,8 @@ public class Controller {
             result = operand.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (divBool) {
             result = operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
+        } else if (powerBool) {
+            result = BigDecimalMath.pow(operand,BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(100));
         }
         digitValueString.setText((result.stripTrailingZeros()).toPlainString());
         buttonDigitValue = "";
@@ -304,14 +311,23 @@ public class Controller {
                 buttonDigitValue = "1";
             } else {
                 buttonDigitValue = digitValueString.getText();
-                result = BigDecimal.valueOf(1);
+                BigDecimal FactRes = BigDecimal.valueOf(1);
                 for (int factor = 2; factor <= Integer.parseInt(buttonDigitValue); factor++) {
-                    result = result.multiply(BigDecimal.valueOf(factor));
+                    FactRes = FactRes.multiply(BigDecimal.valueOf(factor));
                 }
-                buttonDigitValue = result.stripTrailingZeros().toPlainString();
+                buttonDigitValue = FactRes.stripTrailingZeros().toPlainString();
             }
             digitValueString.setText(buttonDigitValue);
-            buttonDigitValue = "";
+            result = BigDecimal.valueOf(0);
+        });
+        power.setOnAction(event -> {
+            addBool = false;
+            subBool = false;
+            mulBool = false;
+            divBool = false;
+            powerBool = true;
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            operand2 = true;
         });
     }
 
