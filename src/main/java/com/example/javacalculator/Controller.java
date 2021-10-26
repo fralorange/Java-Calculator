@@ -26,6 +26,7 @@ public class Controller {
     boolean powerBool = false;
     boolean baserootBool = false;
     boolean operand2 = false;
+    boolean modBool = false;
     boolean FloatingPoint = false;
     boolean SecondFunc = false;
     BigDecimal operand;
@@ -167,6 +168,7 @@ public class Controller {
         mulBool = false;
         powerBool = false;
         baserootBool = false;
+        modBool = false;
         operand2 = false;
         FloatingPoint = false;
         operand = BigDecimal.valueOf(0.0);
@@ -189,7 +191,9 @@ public class Controller {
         } else if (powerBool) {
             result = BigDecimalMath.pow(operand, BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(31));
         } else if (baserootBool) {
-            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(1).divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue.replaceAll("Base: ","")))), new MathContext(31));
+            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(1).divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue.replaceAll("Base: ", "")))), new MathContext(31));
+        } else if (modBool) {
+            result = operand.remainder(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         }
         digitValueString.setText((result.stripTrailingZeros()).toPlainString());
         buttonDigitValue = "";
@@ -283,6 +287,7 @@ public class Controller {
             divBool = false;
             powerBool = false;
             baserootBool = false;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
         });
@@ -296,6 +301,7 @@ public class Controller {
             divBool = false;
             powerBool = false;
             baserootBool = false;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
         });
@@ -309,6 +315,7 @@ public class Controller {
             divBool = false;
             powerBool = false;
             baserootBool = false;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
         });
@@ -322,6 +329,7 @@ public class Controller {
             divBool = true;
             powerBool = false;
             baserootBool = false;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
         });
@@ -355,6 +363,7 @@ public class Controller {
             divBool = false;
             powerBool = true;
             baserootBool = false;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             operand2 = true;
         });
@@ -370,6 +379,7 @@ public class Controller {
             divBool = false;
             powerBool = false;
             baserootBool = true;
+            modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
             digitValueString.setText("Base: " + digitValueString.getText());
             operand2 = true;
@@ -378,6 +388,27 @@ public class Controller {
             buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).sqrt(new MathContext(31)).stripTrailingZeros().toPlainString();
             digitValueString.setText(buttonDigitValue);
             result = BigDecimal.valueOf(0);
+        });
+        pi.setOnAction(event -> {
+            buttonDigitValue = String.valueOf(Math.PI);
+            digitValueString.setText(buttonDigitValue);
+            result = BigDecimal.valueOf(0);
+        });
+        exponent.setOnAction(event -> {
+            buttonDigitValue = String.valueOf(Math.E);
+            digitValueString.setText(buttonDigitValue);
+            result = BigDecimal.valueOf(0);
+        });
+        mod.setOnAction(event -> {
+            addBool = false;
+            subBool = false;
+            mulBool = false;
+            divBool = false;
+            powerBool = false;
+            baserootBool = false;
+            modBool = true;
+            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            operand2 = true;
         });
     }
 
