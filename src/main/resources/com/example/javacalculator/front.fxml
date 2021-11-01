@@ -235,7 +235,7 @@
                   <Font name="Microsoft JhengHei Light" size="32.0" />
                </font>
             </Label>
-            <Label fx:id="prevDigitValueString" alignment="CENTER_RIGHT" layoutX="12.0" layoutY="123.0" prefHeight="64.0" prefWidth="389.0" text="0" textAlignment="RIGHT" textFill="#ff6600" visible="false">
+            <Label fx:id="prevDigitValueString" alignment="CENTER_RIGHT" layoutX="12.0" layoutY="123.0" prefHeight="64.0" prefWidth="389.0" textAlignment="RIGHT" textFill="#ff6600b3">
                <effect>
                   <Glow level="0.88" />
                </effect>

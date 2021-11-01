@@ -158,6 +158,9 @@ public class Controller {
         buttonDigitValue = "";
         result = BigDecimal.valueOf(0.0);
         digitValueString.setText("0");
+        if (prevDigitValueString.getText().contains("=")) {
+            prevDigitValueString.setText("");
+        }
     }
 
     private void onCClick(ActionEvent event) {
@@ -171,6 +174,7 @@ public class Controller {
         modBool = false;
         operand2 = false;
         FloatingPoint = false;
+        prevDigitValueString.setText("");
         operand = BigDecimal.valueOf(0.0);
         result = BigDecimal.valueOf(0.0);
         digitValueString.setText("0");
@@ -195,8 +199,11 @@ public class Controller {
         } else if (modBool) {
             result = operand.remainder(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         }
+        prevDigitValue += buttonDigitValue + "=";
+        prevDigitValueString.setText(prevDigitValue);
         digitValueString.setText((result.stripTrailingZeros()).toPlainString());
         buttonDigitValue = "";
+        prevDigitValue = "";
         FloatingPoint = false;
     }
 
@@ -289,6 +296,8 @@ public class Controller {
             baserootBool = false;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "+";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
         operator_minus.setOnAction(event -> {
@@ -303,6 +312,8 @@ public class Controller {
             baserootBool = false;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "-";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
         operator_multiply.setOnAction(event -> {
@@ -317,6 +328,8 @@ public class Controller {
             baserootBool = false;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "×";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
         operator_divide.setOnAction(event -> {
@@ -331,6 +344,8 @@ public class Controller {
             baserootBool = false;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "÷";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
         equals.setOnAction(this::onEqualsClick);
@@ -351,6 +366,8 @@ public class Controller {
                 buttonDigitValue = FactRes.stripTrailingZeros().toPlainString();
             }
             digitValueString.setText(buttonDigitValue);
+            prevDigitValue = String.format("fact(%s)", digitValueString.getText());
+            prevDigitValueString.setText(prevDigitValue);
             result = BigDecimal.valueOf(0);
         });
         power.setOnAction(event -> {
@@ -365,11 +382,15 @@ public class Controller {
             baserootBool = false;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "^";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
         square.setOnAction(event -> {
             buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).pow(2).stripTrailingZeros().toPlainString();
             digitValueString.setText(buttonDigitValue);
+            prevDigitValue = String.format("sqr(%s)", digitValueString.getText());
+            prevDigitValueString.setText(prevDigitValue);
             result = BigDecimal.valueOf(0);
         });
         ybaseroot.setOnAction(event -> {
@@ -381,12 +402,16 @@ public class Controller {
             baserootBool = true;
             modBool = false;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "ybaseroot";
+            prevDigitValueString.setText(prevDigitValue);
             digitValueString.setText("Base: " + digitValueString.getText());
             operand2 = true;
         });
         squareroot.setOnAction(event -> {
             buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).sqrt(new MathContext(31)).stripTrailingZeros().toPlainString();
             digitValueString.setText(buttonDigitValue);
+            prevDigitValue = String.format("sqrt(%s)", digitValueString.getText());
+            prevDigitValueString.setText(prevDigitValue);
             result = BigDecimal.valueOf(0);
         });
         pi.setOnAction(event -> {
@@ -408,6 +433,8 @@ public class Controller {
             baserootBool = false;
             modBool = true;
             operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
+            prevDigitValue = operand.stripTrailingZeros().toPlainString() + "mod";
+            prevDigitValueString.setText(prevDigitValue);
             operand2 = true;
         });
     }
