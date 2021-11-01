@@ -1,6 +1,7 @@
 module com.example.javacalculator {
     requires javafx.controls;
     requires javafx.fxml;
+    requires ch.obermuhlner.math.big;
 
 
     opens com.example.javacalculator to javafx.fxml;
