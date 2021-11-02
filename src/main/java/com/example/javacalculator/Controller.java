@@ -29,16 +29,17 @@ public class Controller {
     boolean modBool = false;
     boolean FloatingPoint = false;
     boolean SecondFunc = false;
+    boolean newLine = true;
     double x, y;
     BigDecimal operand;
-    BigDecimal result = new BigDecimal(0.0);
+    BigDecimal result = BigDecimal.ZERO;
 
     @FXML
     private Button ate;
 
     @FXML
     private Label digitValueString;
-    String buttonDigitValue = "";
+    String buttonDigitValue = "0";
 
     @FXML
     private Label prevDigitValueString;
@@ -144,7 +145,16 @@ public class Controller {
     private void onButtonClick(ActionEvent event) {
         if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
-        if (buttonDigitValue.equals("0")) buttonDigitValue = "";
+        if (buttonDigitValue.equals("0")) {
+            buttonDigitValue = "";
+        }
+        if (newLine) {
+            prevDigitValueString.setText("");
+            buttonDigitValue = "";
+            result = BigDecimal.ZERO;
+            operand = BigDecimal.ZERO;
+            newLine = false;
+        }
         if (operand2) {
             buttonDigitValue = "";
             FloatingPoint = false;
@@ -156,16 +166,16 @@ public class Controller {
 
     private void onCEClick(ActionEvent event) {
         FloatingPoint = false;
-        buttonDigitValue = "";
-        result = BigDecimal.valueOf(0.0);
-        digitValueString.setText("0");
+        buttonDigitValue = "0";
+        result = BigDecimal.ZERO;
+        digitValueString.setText(buttonDigitValue);
         if (prevDigitValueString.getText().contains("=")) {
             prevDigitValueString.setText("");
         }
     }
 
     private void onCClick(ActionEvent event) {
-        buttonDigitValue = "";
+        buttonDigitValue = "0";
         addBool = false;
         subBool = false;
         divBool = false;
@@ -175,10 +185,11 @@ public class Controller {
         modBool = false;
         operand2 = false;
         FloatingPoint = false;
+        newLine = false;
         prevDigitValueString.setText("");
-        operand = BigDecimal.valueOf(0.0);
-        result = BigDecimal.valueOf(0.0);
-        digitValueString.setText("0");
+        operand = BigDecimal.ZERO;
+        result = BigDecimal.ZERO;
+        digitValueString.setText(buttonDigitValue);
     }
 
 
@@ -194,22 +205,23 @@ public class Controller {
         } else if (powerBool) {
             result = BigDecimalMath.pow(operand, BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(31));
         } else if (baserootBool) {
-            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(1).divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue.replaceAll("Base: ", "")))), new MathContext(31));
+            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(1).divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))), new MathContext(31));
         } else if (modBool) {
             result = operand.remainder(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         }
         prevDigitValue += buttonDigitValue + "=";
         prevDigitValueString.setText(prevDigitValue);
         digitValueString.setText((result.stripTrailingZeros()).toPlainString());
-        buttonDigitValue = "";
+        buttonDigitValue = "0";
         prevDigitValue = "";
+        newLine = true;
         FloatingPoint = false;
     }
 
     private void negate(ActionEvent event) {
         buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0"))) ? BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).negate().stripTrailingZeros().toPlainString() : "0";
         digitValueString.setText(buttonDigitValue);
-        result = BigDecimal.valueOf(0);
+        result = BigDecimal.ZERO;
     }
 
     private void OnDotClick(ActionEvent event) {
@@ -274,6 +286,8 @@ public class Controller {
         powerBool = false;
         baserootBool = false;
         modBool = false;
+        //
+        newLine = false;
         //
         String s = ((Button) event.getSource()).getText();
         operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
@@ -343,7 +357,7 @@ public class Controller {
                 buttonDigitValue = "1";
             } else {
                 buttonDigitValue = digitValueString.getText();
-                BigDecimal FactRes = BigDecimal.valueOf(1);
+                BigDecimal FactRes = BigDecimal.ONE;
                 for (int factor = 2; factor <= Integer.parseInt(buttonDigitValue); factor++) {
                     FactRes = FactRes.multiply(BigDecimal.valueOf(factor));
                 }
@@ -352,14 +366,14 @@ public class Controller {
             digitValueString.setText(buttonDigitValue);
             prevDigitValue = String.format("fact(%s)", digitValueString.getText());
             prevDigitValueString.setText(prevDigitValue);
-            result = BigDecimal.valueOf(0);
+            result = BigDecimal.ZERO;
         });
         square.setOnAction(event -> {
             buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).pow(2).stripTrailingZeros().toPlainString();
             digitValueString.setText(buttonDigitValue);
             prevDigitValue = String.format("sqr(%s)", digitValueString.getText());
             prevDigitValueString.setText(prevDigitValue);
-            result = BigDecimal.valueOf(0);
+            result = BigDecimal.ZERO;
         });
         ybaseroot.setOnAction(this::OnOperator);
         squareroot.setOnAction(event -> {
@@ -372,12 +386,12 @@ public class Controller {
         pi.setOnAction(event -> {
             buttonDigitValue = String.valueOf(Math.PI);
             digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0.0);
+            result = BigDecimal.ZERO;
         });
         exponent.setOnAction(event -> {
             buttonDigitValue = String.valueOf(Math.E);
             digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
+            result = BigDecimal.ZERO;
         });
     }
 
