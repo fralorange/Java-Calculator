@@ -213,9 +213,13 @@ public class Controller {
         }
         prevDigitValue += buttonDigitValue + "=";
         prevDigitValueString.setText(prevDigitValue);
-        digitValueString.setText((result.stripTrailingZeros()).toPlainString());
+        BigDecimal resStripped = result.stripTrailingZeros();
+        if (resStripped.toPlainString().length() > 31) {
+            digitValueString.setText(resStripped.toEngineeringString());
+        } else {
+            digitValueString.setText(resStripped.toPlainString());
+        }
         buttonDigitValue = "0";
-        prevDigitValue = "";
         newLine = true;
         FloatingPoint = false;
     }
