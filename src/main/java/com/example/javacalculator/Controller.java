@@ -414,11 +414,13 @@ public class Controller {
         pi.setOnAction(event -> {
             buttonDigitValue = String.valueOf(Math.PI);
             digitValueString.setText(buttonDigitValue);
+            newLine = true;
             result = BigDecimal.ZERO;
         });
         exponent.setOnAction(event -> {
             buttonDigitValue = String.valueOf(Math.E);
             digitValueString.setText(buttonDigitValue);
+            newLine = true;
             result = BigDecimal.ZERO;
         });
     }
