@@ -34,6 +34,7 @@ public class Controller {
     BigDecimal operand;
     BigDecimal result = BigDecimal.ZERO;
 
+
     @FXML
     private Button ate;
 

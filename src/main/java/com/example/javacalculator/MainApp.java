@@ -25,6 +25,8 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println(Evaluator.EvuluateExpressionToRPN("2+2*2"));
         launch();
+
     }
 }
