@@ -31,7 +31,7 @@ public class Controller {
     boolean SecondFunc = false;
     boolean newLine = true;
     double x, y;
-    BigDecimal operand = BigDecimal.ZERO;
+    BigDecimal operand;
     BigDecimal result = BigDecimal.ZERO;
 
     @FXML
@@ -186,24 +186,22 @@ public class Controller {
         operand2 = false;
         FloatingPoint = false;
         newLine = false;
-        prevDigitValue = "";
         prevDigitValueString.setText("");
         operand = BigDecimal.ZERO;
         result = BigDecimal.ZERO;
-        AuxVar = BigDecimal.ZERO;
         digitValueString.setText(buttonDigitValue);
     }
 
 
     private void onEqualsClick(ActionEvent event) {
         if (addBool) {
-            result = (AuxVar.equals(BigDecimal.ZERO)) ? operand.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))) : AuxVar.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
+            result = operand.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (subBool) {
-            result = (AuxVar.equals(BigDecimal.ZERO)) ? operand.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))) : AuxVar.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
+            result = operand.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (mulBool) {
-            result = (AuxVar.equals(BigDecimal.ZERO)) ? operand.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))) : AuxVar.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
+            result = operand.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
         } else if (divBool) {
-            result = (AuxVar.equals(BigDecimal.ZERO)) ? operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), 31, RoundingMode.HALF_UP) : AuxVar.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), 31, RoundingMode.HALF_UP);
+            result = operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), 31, RoundingMode.HALF_UP);
         } else if (powerBool) {
             result = BigDecimalMath.pow(operand, BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(31));
         } else if (baserootBool) {
@@ -284,8 +282,6 @@ public class Controller {
         stage.setIconified(true);
     }
 
-    BigDecimal AuxVar = BigDecimal.ZERO;
-
     private void OnOperator(ActionEvent event) {
         addBool = false;
         subBool = false;
@@ -302,43 +298,19 @@ public class Controller {
         switch (s) {
             case "+" -> {
                 addBool = true;
-                AuxVar = AuxVar.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))).stripTrailingZeros();
-                if (prevDigitValue.contains("+") && !operand2) {
-                    prevDigitValue += operand.stripTrailingZeros().toPlainString() + "+";
-                    digitValueString.setText(AuxVar.toPlainString());
-                } else {
-                    prevDigitValue = operand.stripTrailingZeros().toPlainString() + "+";
-                }
+                prevDigitValue = operand.stripTrailingZeros().toPlainString() + "+";
             }
             case "-" -> {
                 subBool = true;
-                AuxVar = (AuxVar.equals(BigDecimal.ZERO)) ? BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)) : AuxVar.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))).stripTrailingZeros();
-                if (prevDigitValue.contains("-") && !operand2) {
-                    prevDigitValue += operand.stripTrailingZeros().toPlainString() + "-";
-                    digitValueString.setText(AuxVar.toPlainString());
-                } else {
-                    prevDigitValue = operand.stripTrailingZeros().toPlainString() + "-";
-                }
+                prevDigitValue = operand.stripTrailingZeros().toPlainString() + "-";
             }
             case "×" -> {
                 mulBool = true;
-                AuxVar = (AuxVar.equals(BigDecimal.ZERO)) ? BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)) : AuxVar.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue))).stripTrailingZeros();
-                if (prevDigitValue.contains("×") && !operand2) {
-                    prevDigitValue += operand.stripTrailingZeros().toPlainString() + "×";
-                    digitValueString.setText(AuxVar.toPlainString());
-                } else {
-                    prevDigitValue = operand.stripTrailingZeros().toPlainString() + "×";
-                }
+                prevDigitValue = operand.stripTrailingZeros().toPlainString() + "×";
             }
             case "÷" -> {
                 divBool = true;
-                AuxVar = (AuxVar.equals(BigDecimal.ZERO)) ? BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)) : AuxVar.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(31)).stripTrailingZeros();;
-                if (prevDigitValue.contains("÷") && !operand2) {
-                    prevDigitValue += operand.stripTrailingZeros().toPlainString() + "÷";
-                    digitValueString.setText(AuxVar.toPlainString());
-                } else {
-                    prevDigitValue = operand.stripTrailingZeros().toPlainString() + "÷";
-                }
+                prevDigitValue = operand.stripTrailingZeros().toPlainString() + "÷";
             }
             case "𝑥ʸ" -> {
                 powerBool = true;
