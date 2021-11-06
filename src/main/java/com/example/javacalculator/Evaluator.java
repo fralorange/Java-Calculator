@@ -13,11 +13,8 @@ public class Evaluator {
             switch (p) {
                 case 0 -> {
                     CurrentLine.append(expression.charAt(i));
-                    if (getPriority(stack.peek()) == 4) {
-                        CurrentLine.append(stack.pop());
-                    }
                 }
-                case 1, 4 -> stack.push(expression.charAt(i));
+                case 1 -> stack.push(expression.charAt(i));
                 case -1 -> {
                     CurrentLine.append(' ');
                     while (getPriority(stack.peek()) != 1) {

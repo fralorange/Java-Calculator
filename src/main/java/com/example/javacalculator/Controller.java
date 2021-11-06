@@ -42,14 +42,18 @@ public class Controller {
         for (String string : strings) {
             if (Evaluator.isNumber(string)) {
                 stack.push(Double.parseDouble(string));
-            } else if(!string.isBlank()) {
+            } else if (!string.isBlank()) {
                 double tmp1 = stack.pop();
-                double tmp2 = stack.pop();
-                switch (string) {
-                    case "+" -> stack.push(BigDecimal.valueOf(tmp1).add(BigDecimal.valueOf(tmp2)).doubleValue());
-                    case "-" -> stack.push(BigDecimal.valueOf(tmp2).subtract(BigDecimal.valueOf(tmp1)).doubleValue());
-                    case "×" -> stack.push(BigDecimal.valueOf(tmp1).multiply(BigDecimal.valueOf(tmp2)).doubleValue());
-                    case "÷" -> stack.push(BigDecimal.valueOf(tmp2).divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP).doubleValue());
+                if (Evaluator.isBinaryOperator(string)) {
+                    double tmp2 = stack.pop();
+                    switch (string) {
+                        case "+" -> stack.push(BigDecimal.valueOf(tmp1).add(BigDecimal.valueOf(tmp2)).doubleValue());
+                        case "-" -> stack.push(BigDecimal.valueOf(tmp2).subtract(BigDecimal.valueOf(tmp1)).doubleValue());
+                        case "×" -> stack.push(BigDecimal.valueOf(tmp1).multiply(BigDecimal.valueOf(tmp2)).doubleValue());
+                        case "÷" -> stack.push(BigDecimal.valueOf(tmp2).divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP).doubleValue());
+                    }
+                } else {
+                    stack.push(BigDecimal.valueOf(-tmp1).doubleValue());
                 }
             }
         }
@@ -358,8 +362,8 @@ public class Controller {
     @FXML
     void initialize() {
         System.out.println("~5+10×4÷~2");
-        System.out.println(Evaluator.EvaluateExpressionToRPN("(22+8)×5"));
-        System.out.println(EvaluatedResult(Evaluator.EvaluateExpressionToRPN("(22+8)×5")));
+        System.out.println(Evaluator.EvaluateExpressionToRPN("~5+10×4÷~2"));
+        System.out.println(EvaluatedResult(Evaluator.EvaluateExpressionToRPN("~5+10×4÷~2")));
         one.setOnAction(this::onButtonClick);
         two.setOnAction(this::onButtonClick);
         three.setOnAction(this::onButtonClick);
