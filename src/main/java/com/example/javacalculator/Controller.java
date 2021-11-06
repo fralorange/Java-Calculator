@@ -42,7 +42,7 @@ public class Controller {
         for (String string : strings) {
             if (Evaluator.isNumber(string)) {
                 stack.push(Double.parseDouble(string));
-            } else {
+            } else if(!string.isBlank()) {
                 double tmp1 = stack.pop();
                 double tmp2 = stack.pop();
                 switch (string) {
@@ -357,9 +357,9 @@ public class Controller {
 
     @FXML
     void initialize() {
-        System.out.println("22+8×5");
-        System.out.println(Evaluator.EvaluateExpressionToRPN("22+8×5"));
-        System.out.println(EvaluatedResult(Evaluator.EvaluateExpressionToRPN("22+8×5")));
+        System.out.println("~5+10×4÷~2");
+        System.out.println(Evaluator.EvaluateExpressionToRPN("(22+8)×5"));
+        System.out.println(EvaluatedResult(Evaluator.EvaluateExpressionToRPN("(22+8)×5")));
         one.setOnAction(this::onButtonClick);
         two.setOnAction(this::onButtonClick);
         three.setOnAction(this::onButtonClick);

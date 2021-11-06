@@ -11,8 +11,13 @@ public class Evaluator {
         for (int i = 0; i < expression.length(); i++) {
             p = getPriority(expression.charAt(i));
             switch (p) {
-                case 0 -> CurrentLine.append(expression.charAt(i));
-                case 1 -> stack.push(expression.charAt(i));
+                case 0 -> {
+                    CurrentLine.append(expression.charAt(i));
+                    if (getPriority(stack.peek()) == 4) {
+                        CurrentLine.append(stack.pop());
+                    }
+                }
+                case 1, 4 -> stack.push(expression.charAt(i));
                 case -1 -> {
                     CurrentLine.append(' ');
                     while (getPriority(stack.peek()) != 1) {
@@ -20,14 +25,11 @@ public class Evaluator {
                     }
                     stack.pop();
                 }
-                case 4 -> {
-                    stack.push(expression.charAt(i));
-                }
                 default -> {
                     CurrentLine.append(' ');
                     while (!stack.empty()) {
                         if (getPriority(stack.peek()) >= p) {
-                            CurrentLine.append(stack.pop());
+                            CurrentLine.append(stack.pop()).append(' ');
                         } else break;
                     }
                     stack.push(expression.charAt(i));
