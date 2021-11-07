@@ -1,5 +1,6 @@
 package com.example.javacalculator;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -15,204 +16,269 @@ import javafx.util.Duration;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-
-import ch.obermuhlner.math.big.BigDecimalMath;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class Controller {
-    boolean addBool = false;
-    boolean subBool = false;
-    boolean divBool = false;
-    boolean mulBool = false;
-    boolean powerBool = false;
-    boolean baserootBool = false;
-    boolean operand2 = false;
-    boolean modBool = false;
-    boolean FloatingPoint = false;
-    boolean SecondFunc = false;
-    BigDecimal operand;
-    BigDecimal result = new BigDecimal(0.0);
+    private String resultedValueString = "";
+    private String digitResultedValueString = "";
+    private boolean SecondFuncMenu = false;
+    private boolean FloatingPoint = false;
+    private boolean NewLine = false;
+    private double x, y;
+    private int n = 0;
+
+
+    private static double EvaluatedResult(String MathExpression) {
+        String[] strings = MathExpression.split(" ");
+        Stack<Double> stack = new Stack<>();
+        MathContext precision = new MathContext(31);
+        for (String string : strings) {
+            if (Evaluator.isNumber(string)) {
+                stack.push(Double.parseDouble(string));
+            } else if (!string.isBlank()) {
+                double tmp1 = stack.pop();
+                if (Evaluator.isBinaryOperator(string)) {
+                    double tmp2 = stack.pop();
+                    switch (string) {
+                        case "+" -> stack.push(BigDecimal.valueOf(tmp1).add(BigDecimal.valueOf(tmp2)).doubleValue());
+                        case "-" -> stack.push(BigDecimal.valueOf(tmp2).subtract(BigDecimal.valueOf(tmp1)).doubleValue());
+                        case "×" -> stack.push(BigDecimal.valueOf(tmp1).multiply(BigDecimal.valueOf(tmp2)).doubleValue());
+                        case "÷" -> stack.push(BigDecimal.valueOf(tmp2).divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP).doubleValue());
+                        case "^" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp2), BigDecimal.valueOf(tmp1), precision).doubleValue());
+                        case "y" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp2), BigDecimal.ONE.divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP), precision).doubleValue());
+                        case "m" -> stack.push(BigDecimal.valueOf(tmp2).remainder(BigDecimal.valueOf(tmp1)).doubleValue());
+                    }
+                } else {
+                    switch (string) {
+                        case "~" -> stack.push(BigDecimal.valueOf(-tmp1).doubleValue());
+                        case "²" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp1), 2, precision).doubleValue());
+                        case "√" -> stack.push(BigDecimalMath.sqrt(BigDecimal.valueOf(tmp1), precision).doubleValue());
+                        case "!" -> stack.push(BigDecimalMath.factorial(BigDecimal.valueOf(tmp1), precision).doubleValue());
+                    }
+                }
+            }
+        }
+        if (!stack.empty()) {
+            return stack.pop();
+        } else throw new ArithmeticException("Stack error...");
+    }
+
+    //FXML Variables
 
     @FXML
-    private Button ate;
+    private Label digitValueLabel,prevDigitValueLabel;
+
+    private String digitValueString = "";
+    private String prevDigitValueString = "";
+
+    // Buttons
 
     @FXML
-    private Label digitValueString;
-    String buttonDigitValue = "";
+    private Button one, two, three, four, five, six, seven, ate, nine, zero;
 
     @FXML
-    private Label prevDigitValueString;
-    String prevDigitValue = "";
+    private Button operator_plus, operator_minus, operator_multiply, operator_divide, negate, power, mod;
 
     @FXML
-    private Button dot;
+    private Button ybaseroot, squareroot, square;
 
     @FXML
-    private Button five;
-
-    @FXML
-    private Button four;
-
-    @FXML
-    private Button nine;
-
-    @FXML
-    private Button one;
-
-    @FXML
-    private Button plusminus;
-
-    @FXML
-    private Button seven;
-
-    @FXML
-    private Button six;
-
-    @FXML
-    private Button three;
-
-    @FXML
-    private Button two;
-
-    @FXML
-    private Button zero;
-
-    @FXML
-    private Button CE;
-
-    @FXML
-    private Button C;
-
-    @FXML
-    private Button operator_divide;
-
-    @FXML
-    private Button operator_minus;
-
-    @FXML
-    private Button operator_multiply;
-
-    @FXML
-    private Button operator_plus;
-
-    @FXML
-    private Button equals;
-
-    @FXML
-    private AnchorPane mainSec;
-
-    @FXML
-    private Button SecF;
-
-    @FXML
-    private Button SecFend;
-
-    @FXML
-    private Button equals2;
-
-    @FXML
-    private Button ybaseroot;
-
-    @FXML
-    private Button squareroot;
-
-    @FXML
-    private Button square;
-
-    @FXML
-    private Button power;
-
-    @FXML
-    private Button mod;
-
-    @FXML
-    private Button pi;
-
-    @FXML
-    private Button exponent;
+    private Button pi, exponent;
 
     @FXML
     private Button fact;
 
     @FXML
-    private Button leftbr;
+    private Button leftbr, rightbr;
 
     @FXML
-    private Button rightbr;
+    private Button dot;
 
+    //UI BUTTONS
 
-    private void onButtonClick(ActionEvent event) {
-        if (Character.toString(digitValueString.getText().charAt(0)).equals("0") && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
+    @FXML
+    private Button CE, C;
+
+    @FXML
+    private Button equals, equals2;
+
+    @FXML
+    private Button SecF, SecFend;
+
+    //
+
+    @FXML
+    private AnchorPane mainSec;
+
+    //
+
+    private void ClearLine(ActionEvent event) {
+        FloatingPoint = false;
+        digitValueString = "";
+        digitResultedValueString = "";
+        digitValueLabel.setText("0");
+    }
+
+    private void ClearExpression(ActionEvent event) {
+        resultedValueString = "";
+        prevDigitValueString = "";
+        prevDigitValueLabel.setText(prevDigitValueString);
+        ClearLine(event);
+    }
+
+    private void onNumberClick(ActionEvent event) {
+        if ((digitValueString.equals("0")) && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
-        if (buttonDigitValue.equals("0")) buttonDigitValue = "";
-        if (operand2) {
-            buttonDigitValue = (baserootBool) ? "Base: " : "";
-            FloatingPoint = false;
-            operand2 = false;
+        if (digitValueString.equals("0")) {
+            digitValueString = "";
         }
-        buttonDigitValue += ((Button) event.getSource()).getText();
-        digitValueString.setText(buttonDigitValue);
-    }
-
-    private void onCEClick(ActionEvent event) {
-        FloatingPoint = false;
-        buttonDigitValue = "";
-        result = BigDecimal.valueOf(0.0);
-        digitValueString.setText("0");
-    }
-
-    private void onCClick(ActionEvent event) {
-        buttonDigitValue = "";
-        addBool = false;
-        subBool = false;
-        divBool = false;
-        mulBool = false;
-        powerBool = false;
-        baserootBool = false;
-        modBool = false;
-        operand2 = false;
-        FloatingPoint = false;
-        operand = BigDecimal.valueOf(0.0);
-        result = BigDecimal.valueOf(0.0);
-        digitValueString.setText("0");
-
-
-    }
-
-
-    private void onEqualsClick(ActionEvent event) {
-        if (addBool) {
-            result = operand.add(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
-        } else if (subBool) {
-            result = operand.subtract(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
-        } else if (mulBool) {
-            result = operand.multiply(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
-        } else if (divBool) {
-            result = operand.divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), 31, RoundingMode.HALF_UP);
-        } else if (powerBool) {
-            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)), new MathContext(31));
-        } else if (baserootBool) {
-            result = BigDecimalMath.pow(operand, BigDecimal.valueOf(1).divide(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue.replaceAll("Base: ", "")))), new MathContext(31));
-        } else if (modBool) {
-            result = operand.remainder(BigDecimal.valueOf(Double.parseDouble(buttonDigitValue)));
+        if (NewLine) {
+            ClearExpression(event);
+            NewLine = false;
         }
-        digitValueString.setText((result.stripTrailingZeros()).toPlainString());
-        buttonDigitValue = "";
-        FloatingPoint = false;
-    }
-
-    private void negate(ActionEvent event) {
-        buttonDigitValue = ((!digitValueString.getText().equals("")) && (!digitValueString.getText().equals("0"))) ? BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).negate().stripTrailingZeros().toPlainString() : "0";
-        digitValueString.setText(buttonDigitValue);
-        result = BigDecimal.valueOf(0);
+        digitResultedValueString += ((Button) event.getSource()).getText();
+        digitValueString += ((Button) event.getSource()).getText();
+        digitValueLabel.setText(digitValueString);
     }
 
     private void OnDotClick(ActionEvent event) {
         if (!FloatingPoint) {
-            buttonDigitValue += (!buttonDigitValue.equals("")) ? "." : "0.";
-            digitValueString.setText(buttonDigitValue);
+            if (NewLine) {
+                ClearExpression(event);
+                NewLine = false;
+            }
+            digitResultedValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueLabel.setText(digitValueString);
             FloatingPoint = true;
         }
     }
+
+    private void GetMathPi(ActionEvent event) {
+        NewLine = true;
+        digitValueLabel.setText(String.valueOf(Math.PI));
+    }
+
+    private void GetMathE(ActionEvent event) {
+        NewLine = true;
+        digitValueLabel.setText(String.valueOf(Math.E));
+    }
+
+    private void Negate(ActionEvent event) {
+        digitValueString = BigDecimal.valueOf(-Double.parseDouble(digitValueString)).stripTrailingZeros().toPlainString();
+        digitResultedValueString = (digitValueString.charAt(0) == '-') ? "~" + digitValueString.replace("-", "") : digitValueString;
+        digitValueLabel.setText(digitValueString);
+    }
+
+    private void OnOperatorClick(ActionEvent event) {
+        String lastSymbol = (prevDigitValueString.length() > 1) ? prevDigitValueString.substring(prevDigitValueString.length() - 1) : "";
+        String operator = ((Button) event.getSource()).getText();
+        FloatingPoint = false;
+        if (!digitValueString.isEmpty()) {
+            ;
+        } else if (Arrays.asList(new String[]{"+", "-", "×", "÷"}).contains(lastSymbol)) {
+            prevDigitValueString = prevDigitValueString.substring(0, prevDigitValueString.length() - 1);
+            resultedValueString = resultedValueString.substring(0, resultedValueString.length() - 1);
+        }
+        if (NewLine) {
+            digitValueString = "";
+            digitResultedValueString = "";
+            if (digitValueLabel.getText().contains("E+")) {
+                resultedValueString = BigDecimal.valueOf(Double.parseDouble(digitValueLabel.getText())).toPlainString();
+                prevDigitValueString = String.format("(%s)", digitValueLabel.getText());
+            } else {
+                resultedValueString = digitValueLabel.getText();
+                prevDigitValueString = digitValueLabel.getText();
+            }
+            FloatingPoint = false;
+            NewLine = false;
+        }
+        prevDigitValueString += digitValueString;
+        resultedValueString += digitResultedValueString;
+        digitValueString = "";
+        digitResultedValueString = "";
+        // +,-,×,÷ stream to short the code
+        List<String> BinaryOperators = Arrays.asList("+", "-", "×", "÷");
+        BinaryOperators.stream().filter(x -> x.equals(operator)).forEach(o -> {
+            prevDigitValueString += o;
+            resultedValueString += o;
+        });
+        switch (operator) {
+            case "𝑥ʸ" -> {
+                prevDigitValueString += "^";
+                resultedValueString += "^";
+            }
+            case "𝑥²" -> {
+                if (lastSymbol.equals("²")) {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString += "²";
+                resultedValueString += "²";
+            }
+            case "√x" -> {  /// square root
+                if (prevDigitValueString.charAt(0) == '√') {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString = "√" + prevDigitValueString;
+                resultedValueString = resultedValueString + "√";
+            }
+            case "√𝑥" -> {  /// y base root
+                if (prevDigitValueString.charAt(0) == '√') {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString = prevDigitValueString + "yroot";
+                resultedValueString = resultedValueString + "y";
+            }
+            case "mod" -> {
+                prevDigitValueString += "mod";
+                resultedValueString += "m";
+            }
+            case "𝑛!" -> {
+                prevDigitValueString += "!";
+                resultedValueString += "!";
+            }
+        }
+        ;
+        prevDigitValueLabel.setText(prevDigitValueString);
+    }
+
+    private void onBracketsClick(ActionEvent event) {
+        String bracket = ((Button) event.getSource()).getText();
+        if (bracket.equals("(")) {
+            if (NewLine) {
+                ClearExpression(event);
+                NewLine = false;
+            }
+            prevDigitValueString += "(";
+            resultedValueString += "(";
+            n += 1;
+        } else if ((bracket.equals(")")) && (n > 0)) {
+            prevDigitValueString += digitValueString + ")";
+            resultedValueString += digitResultedValueString + ")";
+            digitValueString = "";
+            digitResultedValueString = "";
+            n -= 1;
+        }
+        prevDigitValueLabel.setText(prevDigitValueString);
+    }
+
+
+    private void onEqualsClick(ActionEvent event) {
+        resultedValueString += digitResultedValueString;
+        String placeholder = BigDecimal.valueOf(EvaluatedResult(Evaluator.EvaluateExpressionToRPN(resultedValueString))).stripTrailingZeros().toPlainString();
+        if (placeholder.length() > 21) {
+            digitValueLabel.setText(BigDecimal.valueOf(Double.parseDouble(placeholder)).toEngineeringString());
+        } else digitValueLabel.setText(placeholder);
+        prevDigitValueString += digitValueString + "=";
+        prevDigitValueLabel.setText(prevDigitValueString);
+        NewLine = true;
+    }
+
+
+    // UI //
 
     private void OnSecondFunctionClick(ActionEvent event) {
         Duration dur = Duration.seconds(0.35);
@@ -222,7 +288,7 @@ public class Controller {
         fade.setDuration(dur);
         trans.setNode(mainSec);
         fade.setNode(mainSec);
-        if (SecondFunc) {
+        if (SecondFuncMenu) {
             trans.setToY(0);
             fade.setToValue(0);
         } else {
@@ -231,11 +297,9 @@ public class Controller {
         }
         trans.play();
         fade.play();
-        SecondFunc = !SecondFunc;
+        SecondFuncMenu = !SecondFuncMenu;
         mainSec.setDisable(!mainSec.isDisable());
     }
-
-    double x, y;
 
     @FXML
     private void Dragged(MouseEvent event) {
@@ -265,151 +329,25 @@ public class Controller {
 
     @FXML
     void initialize() {
-        one.setOnAction(this::onButtonClick);
-        two.setOnAction(this::onButtonClick);
-        three.setOnAction(this::onButtonClick);
-        four.setOnAction(this::onButtonClick);
-        five.setOnAction(this::onButtonClick);
-        six.setOnAction(this::onButtonClick);
-        seven.setOnAction(this::onButtonClick);
-        ate.setOnAction(this::onButtonClick);
-        nine.setOnAction(this::onButtonClick);
-        zero.setOnAction(this::onButtonClick);
-        CE.setOnAction(this::onCEClick);
-        C.setOnAction(this::onCClick);
-        operator_plus.setOnAction(event -> {
-            if (baserootBool) {
-                digitValueString.setText("0");
-            }
-            addBool = true;
-            subBool = false;
-            mulBool = false;
-            divBool = false;
-            powerBool = false;
-            baserootBool = false;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
-        operator_minus.setOnAction(event -> {
-            if (baserootBool) {
-                digitValueString.setText("0");
-            }
-            addBool = false;
-            subBool = true;
-            mulBool = false;
-            divBool = false;
-            powerBool = false;
-            baserootBool = false;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
-        operator_multiply.setOnAction(event -> {
-            if (baserootBool) {
-                digitValueString.setText("0");
-            }
-            addBool = false;
-            subBool = false;
-            mulBool = true;
-            divBool = false;
-            powerBool = false;
-            baserootBool = false;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
-        operator_divide.setOnAction(event -> {
-            if (baserootBool) {
-                digitValueString.setText("0");
-            }
-            addBool = false;
-            subBool = false;
-            mulBool = false;
-            divBool = true;
-            powerBool = false;
-            baserootBool = false;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
-        equals.setOnAction(this::onEqualsClick);
-        plusminus.setOnAction(this::negate);
+        List<Button> numbers = Arrays.asList(one, two, three, four, five, six, seven, ate, nine, zero);
+        List<Button> operators = Arrays.asList(operator_plus, operator_minus, operator_multiply, operator_divide, power, mod, square, squareroot, ybaseroot, fact);
+        //
+        numbers.forEach(number -> number.setOnAction(this::onNumberClick));
+        operators.forEach(operator -> operator.setOnAction(this::OnOperatorClick));
+        rightbr.setOnAction(this::onBracketsClick);
+        leftbr.setOnAction(this::onBracketsClick);
+        negate.setOnAction(this::Negate);
         dot.setOnAction(this::OnDotClick);
+        pi.setOnAction(this::GetMathPi);
+        exponent.setOnAction(this::GetMathE);
+        // UI Buttons
+        CE.setOnAction(this::ClearLine); // clear line
+        C.setOnAction(this::ClearExpression); // clear whole string
+        equals.setOnAction(this::onEqualsClick); // two identical buttons 1 // throws final string to RPM Evaluator
+        equals2.setOnAction(this::onEqualsClick); // two identical buttons 2
         SecF.setOnAction(this::OnSecondFunctionClick);
         SecFend.setOnAction(this::OnSecondFunctionClick);
-        equals2.setOnAction(this::onEqualsClick);
-        fact.setOnAction(event -> {
-            if (digitValueString.getText().equals("0")) {
-                buttonDigitValue = "1";
-            } else {
-                buttonDigitValue = digitValueString.getText();
-                BigDecimal FactRes = BigDecimal.valueOf(1);
-                for (int factor = 2; factor <= Integer.parseInt(buttonDigitValue); factor++) {
-                    FactRes = FactRes.multiply(BigDecimal.valueOf(factor));
-                }
-                buttonDigitValue = FactRes.stripTrailingZeros().toPlainString();
-            }
-            digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        power.setOnAction(event -> {
-            if (baserootBool) {
-                digitValueString.setText("0");
-            }
-            addBool = false;
-            subBool = false;
-            mulBool = false;
-            divBool = false;
-            powerBool = true;
-            baserootBool = false;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
-        square.setOnAction(event -> {
-            buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).pow(2).stripTrailingZeros().toPlainString();
-            digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        ybaseroot.setOnAction(event -> {
-            addBool = false;
-            subBool = false;
-            mulBool = false;
-            divBool = false;
-            powerBool = false;
-            baserootBool = true;
-            modBool = false;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            digitValueString.setText("Base: " + digitValueString.getText());
-            operand2 = true;
-        });
-        squareroot.setOnAction(event -> {
-            buttonDigitValue = BigDecimal.valueOf(Double.parseDouble(digitValueString.getText())).sqrt(new MathContext(31)).stripTrailingZeros().toPlainString();
-            digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        pi.setOnAction(event -> {
-            buttonDigitValue = String.valueOf(Math.PI);
-            digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        exponent.setOnAction(event -> {
-            buttonDigitValue = String.valueOf(Math.E);
-            digitValueString.setText(buttonDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        mod.setOnAction(event -> {
-            addBool = false;
-            subBool = false;
-            mulBool = false;
-            divBool = false;
-            powerBool = false;
-            baserootBool = false;
-            modBool = true;
-            operand = (result.doubleValue() != 0) ? result : BigDecimal.valueOf(Double.parseDouble(buttonDigitValue));
-            operand2 = true;
-        });
     }
+
 
 }

@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class MainApp extends Application {
@@ -15,7 +16,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("front.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        Image img = new Image(getClass().getResource("icon/calc.png").toExternalForm(),256,256,false,false);
+        Image img = new Image(Objects.requireNonNull(getClass().getResource("icon/calc.png")).toExternalForm(),256,256,false,false);
         stage.getIcons().add(img);
         stage.initStyle(StageStyle.TRANSPARENT);
         //
