@@ -147,11 +147,12 @@ public class Controller {
         }
         if (NewLine) {
             digitValueString = "";
+            digitResultedValueString = "";
             resultedValueString = digitValueLabel.getText();
             prevDigitValueString = digitValueLabel.getText();
+            FloatingPoint = false;
             NewLine = false;
         }
-
         prevDigitValueString += digitValueString;
         resultedValueString += digitResultedValueString;
         digitValueString = "";
