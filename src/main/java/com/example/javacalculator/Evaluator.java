@@ -1,5 +1,6 @@
 package com.example.javacalculator;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Evaluator {
@@ -18,7 +19,7 @@ public class Evaluator {
                 case -1 -> {
                     CurrentLine.append(' ');
                     while (getPriority(stack.peek()) != 1) {
-                        CurrentLine.append(stack.pop());
+                        CurrentLine.append(stack.pop()).append(' ');
                     }
                     stack.pop();
                 }

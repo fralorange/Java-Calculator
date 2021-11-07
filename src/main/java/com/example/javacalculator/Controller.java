@@ -113,36 +113,46 @@ public class Controller {
             ClearExpression(event);
             NewLine = false;
         }
-        prevDigitValueString += ((Button) event.getSource()).getText();
-        resultedValueString += ((Button) event.getSource()).getText();
+        digitResultedValueString += ((Button) event.getSource()).getText();
         digitValueString += ((Button) event.getSource()).getText();
         digitValueLabel.setText(digitValueString);
     }
 
     private void ClearLine(ActionEvent event) {
-        digitValueString = "0";
-        digitValueLabel.setText(digitValueString);
+        digitValueString = "";
+        digitResultedValueString = "";
+        digitValueLabel.setText("0");
     }
 
     private void ClearExpression(ActionEvent event) {
         resultedValueString = "";
         prevDigitValueString = "";
         digitValueString = "";
+        digitResultedValueString = "";
         prevDigitValueLabel.setText(prevDigitValueString);
-        digitValueLabel.setText(digitValueString);
+        digitValueLabel.setText("0");
     }
 
     private void OnOperatorClick(ActionEvent event) {
         String lastSymbol = (prevDigitValueString.length() > 1) ? prevDigitValueString.substring(prevDigitValueString.length() - 1) : "";
         String operator = ((Button) event.getSource()).getText();
-        if (Arrays.asList(new String[]{"+", "-", "×", "÷"}).contains(lastSymbol)) {
+        if (!digitValueString.isEmpty()) {
+            ;
+        } else if (Arrays.asList(new String[]{"+", "-", "×", "÷"}).contains(lastSymbol)) {
             prevDigitValueString = prevDigitValueString.substring(0, prevDigitValueString.length() - 1);
+            resultedValueString = resultedValueString.substring(0, resultedValueString.length() - 1);
         }
         if (NewLine) {
+            digitValueString = "";
+            resultedValueString = digitValueLabel.getText();
             prevDigitValueString = digitValueLabel.getText();
             NewLine = false;
         }
+
+        prevDigitValueString += digitValueString;
+        resultedValueString += digitResultedValueString;
         digitValueString = "";
+        digitResultedValueString = "";
         switch (operator) {
             case "+" -> {
                 prevDigitValueString += "+";
@@ -167,15 +177,15 @@ public class Controller {
 
     private void Negate(ActionEvent event) {
         digitValueString = BigDecimal.valueOf(-Double.parseDouble(digitValueString)).stripTrailingZeros().toPlainString();
-        digitResultedValueString = (digitValueString.charAt(0) == '-') ? "~" + digitValueString.replace("-","") : digitValueString;
-        System.out.println(digitResultedValueString);
+        digitResultedValueString = (digitValueString.charAt(0) == '-') ? "~" + digitValueString.replace("-", "") : digitValueString;
         digitValueLabel.setText(digitValueString);
     }
 
 
     private void onEqualsClick(ActionEvent event) {
-        digitValueLabel.setText(BigDecimal.valueOf(EvaluatedResult(Evaluator.EvaluateExpressionToRPN(prevDigitValueString))).stripTrailingZeros().toPlainString());
-        prevDigitValueString += "=";
+        resultedValueString += digitResultedValueString;
+        digitValueLabel.setText(BigDecimal.valueOf(EvaluatedResult(Evaluator.EvaluateExpressionToRPN(resultedValueString))).stripTrailingZeros().toPlainString());
+        prevDigitValueString += digitValueString + "=";
         prevDigitValueLabel.setText(prevDigitValueString);
         NewLine = true;
     }
@@ -183,10 +193,18 @@ public class Controller {
     private void onBracketsClick(ActionEvent event) {
         String bracket = ((Button) event.getSource()).getText();
         if (bracket.equals("(")) {
+            if (NewLine) {
+                ClearExpression(event);
+                NewLine = false;
+            }
             prevDigitValueString += "(";
+            resultedValueString += "(";
             n += 1;
         } else if ((bracket.equals(")")) && (n > 0)) {
-            prevDigitValueString += ")";
+            prevDigitValueString += digitValueString + ")";
+            resultedValueString += digitResultedValueString + ")";
+            digitValueString = "";
+            digitResultedValueString = "";
             n -= 1;
         }
         prevDigitValueLabel.setText(prevDigitValueString);
