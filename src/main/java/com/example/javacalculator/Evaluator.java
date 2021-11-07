@@ -1,5 +1,6 @@
 package com.example.javacalculator;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -50,15 +51,21 @@ public class Evaluator {
     }
 
     public static boolean isBinaryOperator(String s) {
-        return (getPriority(s.charAt(0)) >= 1 && getPriority(s.charAt(0)) < 4);
+        return (getPriority(s.charAt(0)) >= 1 && getPriority(s.charAt(0)) < 5);
     }
 
     private static int getPriority(char p) {
         switch (p) {
             case '~' -> {
+                return 6;
+            }
+            case '√','²','!' -> {
+                return 5;
+            }
+            case '^','y' -> {
                 return 4;
             }
-            case '×', '÷' -> {
+            case '×', '÷', 'm' -> {
                 return 3;
             }
             case '+', '-' -> {

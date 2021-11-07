@@ -1,5 +1,6 @@
 package com.example.javacalculator;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -13,7 +14,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -28,10 +31,10 @@ public class Controller {
     private int n = 0;
 
 
-    public static double EvaluatedResult(String MathExpression) {
+    private static double EvaluatedResult(String MathExpression) {
         String[] strings = MathExpression.split(" ");
         Stack<Double> stack = new Stack<>();
-
+        MathContext precision = new MathContext(31);
         for (String string : strings) {
             if (Evaluator.isNumber(string)) {
                 stack.push(Double.parseDouble(string));
@@ -44,9 +47,17 @@ public class Controller {
                         case "-" -> stack.push(BigDecimal.valueOf(tmp2).subtract(BigDecimal.valueOf(tmp1)).doubleValue());
                         case "×" -> stack.push(BigDecimal.valueOf(tmp1).multiply(BigDecimal.valueOf(tmp2)).doubleValue());
                         case "÷" -> stack.push(BigDecimal.valueOf(tmp2).divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP).doubleValue());
+                        case "^" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp2), BigDecimal.valueOf(tmp1), precision).doubleValue());
+                        case "y" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp2), BigDecimal.ONE.divide(BigDecimal.valueOf(tmp1), 31, RoundingMode.HALF_UP), precision).doubleValue());
+                        case "m" -> stack.push(BigDecimal.valueOf(tmp2).remainder(BigDecimal.valueOf(tmp1)).doubleValue());
                     }
                 } else {
-                    stack.push(BigDecimal.valueOf(-tmp1).doubleValue());
+                    switch (string) {
+                        case "~" -> stack.push(BigDecimal.valueOf(-tmp1).doubleValue());
+                        case "²" -> stack.push(BigDecimalMath.pow(BigDecimal.valueOf(tmp1), 2, precision).doubleValue());
+                        case "√" -> stack.push(BigDecimalMath.sqrt(BigDecimal.valueOf(tmp1), precision).doubleValue());
+                        case "!" -> stack.push(BigDecimalMath.factorial(BigDecimal.valueOf(tmp1), precision).doubleValue());
+                    }
                 }
             }
         }
@@ -58,11 +69,9 @@ public class Controller {
     //FXML Variables
 
     @FXML
-    private Label digitValueLabel;
-    private String digitValueString = "";
+    private Label digitValueLabel,prevDigitValueLabel;
 
-    @FXML
-    private Label prevDigitValueLabel;
+    private String digitValueString = "";
     private String prevDigitValueString = "";
 
     // Buttons
@@ -106,6 +115,20 @@ public class Controller {
 
     //
 
+    private void ClearLine(ActionEvent event) {
+        FloatingPoint = false;
+        digitValueString = "";
+        digitResultedValueString = "";
+        digitValueLabel.setText("0");
+    }
+
+    private void ClearExpression(ActionEvent event) {
+        resultedValueString = "";
+        prevDigitValueString = "";
+        prevDigitValueLabel.setText(prevDigitValueString);
+        ClearLine(event);
+    }
+
     private void onNumberClick(ActionEvent event) {
         if ((digitValueString.equals("0")) && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
@@ -121,18 +144,33 @@ public class Controller {
         digitValueLabel.setText(digitValueString);
     }
 
-    private void ClearLine(ActionEvent event) {
-        FloatingPoint = false;
-        digitValueString = "";
-        digitResultedValueString = "";
-        digitValueLabel.setText("0");
+    private void OnDotClick(ActionEvent event) {
+        if (!FloatingPoint) {
+            if (NewLine) {
+                ClearExpression(event);
+                NewLine = false;
+            }
+            digitResultedValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueLabel.setText(digitValueString);
+            FloatingPoint = true;
+        }
     }
 
-    private void ClearExpression(ActionEvent event) {
-        resultedValueString = "";
-        prevDigitValueString = "";
-        prevDigitValueLabel.setText(prevDigitValueString);
-        ClearLine(event);
+    private void GetMathPi(ActionEvent event) {
+        NewLine = true;
+        digitValueLabel.setText(String.valueOf(Math.PI));
+    }
+
+    private void GetMathE(ActionEvent event) {
+        NewLine = true;
+        digitValueLabel.setText(String.valueOf(Math.E));
+    }
+
+    private void Negate(ActionEvent event) {
+        digitValueString = BigDecimal.valueOf(-Double.parseDouble(digitValueString)).stripTrailingZeros().toPlainString();
+        digitResultedValueString = (digitValueString.charAt(0) == '-') ? "~" + digitValueString.replace("-", "") : digitValueString;
+        digitValueLabel.setText(digitValueString);
     }
 
     private void OnOperatorClick(ActionEvent event) {
@@ -148,8 +186,13 @@ public class Controller {
         if (NewLine) {
             digitValueString = "";
             digitResultedValueString = "";
-            resultedValueString = digitValueLabel.getText();
-            prevDigitValueString = digitValueLabel.getText();
+            if (digitValueLabel.getText().contains("E+")) {
+                resultedValueString = BigDecimal.valueOf(Double.parseDouble(digitValueLabel.getText())).toPlainString();
+                prevDigitValueString = String.format("(%s)", digitValueLabel.getText());
+            } else {
+                resultedValueString = digitValueLabel.getText();
+                prevDigitValueString = digitValueLabel.getText();
+            }
             FloatingPoint = false;
             NewLine = false;
         }
@@ -157,41 +200,49 @@ public class Controller {
         resultedValueString += digitResultedValueString;
         digitValueString = "";
         digitResultedValueString = "";
+        // +,-,×,÷ stream to short the code
+        List<String> BinaryOperators = Arrays.asList("+", "-", "×", "÷");
+        BinaryOperators.stream().filter(x -> x.equals(operator)).forEach(o -> {
+            prevDigitValueString += o;
+            resultedValueString += o;
+        });
         switch (operator) {
-            case "+" -> {
-                prevDigitValueString += "+";
-                resultedValueString += "+";
+            case "𝑥ʸ" -> {
+                prevDigitValueString += "^";
+                resultedValueString += "^";
             }
-            case "-" -> {
-                prevDigitValueString += "-";
-                resultedValueString += "-";
+            case "𝑥²" -> {
+                if (lastSymbol.equals("²")) {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString += "²";
+                resultedValueString += "²";
             }
-            case "×" -> {
-                prevDigitValueString += "×";
-                resultedValueString += "×";
+            case "√x" -> {  /// square root
+                if (prevDigitValueString.charAt(0) == '√') {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString = "√" + prevDigitValueString;
+                resultedValueString = resultedValueString + "√";
             }
-            case "÷" -> {
-                prevDigitValueString += "÷";
-                resultedValueString += "÷";
+            case "√𝑥" -> {  /// y base root
+                if (prevDigitValueString.charAt(0) == '√') {
+                    prevDigitValueString = String.format("(%s)", prevDigitValueString);
+                }
+                prevDigitValueString = prevDigitValueString + "yroot";
+                resultedValueString = resultedValueString + "y";
+            }
+            case "mod" -> {
+                prevDigitValueString += "mod";
+                resultedValueString += "m";
+            }
+            case "𝑛!" -> {
+                prevDigitValueString += "!";
+                resultedValueString += "!";
             }
         }
         ;
         prevDigitValueLabel.setText(prevDigitValueString);
-    }
-
-    private void Negate(ActionEvent event) {
-        digitValueString = BigDecimal.valueOf(-Double.parseDouble(digitValueString)).stripTrailingZeros().toPlainString();
-        digitResultedValueString = (digitValueString.charAt(0) == '-') ? "~" + digitValueString.replace("-", "") : digitValueString;
-        digitValueLabel.setText(digitValueString);
-    }
-
-
-    private void onEqualsClick(ActionEvent event) {
-        resultedValueString += digitResultedValueString;
-        digitValueLabel.setText(BigDecimal.valueOf(EvaluatedResult(Evaluator.EvaluateExpressionToRPN(resultedValueString))).stripTrailingZeros().toPlainString());
-        prevDigitValueString += digitValueString + "=";
-        prevDigitValueLabel.setText(prevDigitValueString);
-        NewLine = true;
     }
 
     private void onBracketsClick(ActionEvent event) {
@@ -214,14 +265,18 @@ public class Controller {
         prevDigitValueLabel.setText(prevDigitValueString);
     }
 
-    private void OnDotClick(ActionEvent event) {
-        if (!FloatingPoint) {
-            digitResultedValueString += (!digitValueString.equals("")) ? "." : "0.";
-            digitValueString += (!digitValueString.equals("")) ? "." : "0.";
-            digitValueLabel.setText(digitValueString);
-            FloatingPoint = true;
-        }
+
+    private void onEqualsClick(ActionEvent event) {
+        resultedValueString += digitResultedValueString;
+        String placeholder = BigDecimal.valueOf(EvaluatedResult(Evaluator.EvaluateExpressionToRPN(resultedValueString))).stripTrailingZeros().toPlainString();
+        if (placeholder.length() > 21) {
+            digitValueLabel.setText(BigDecimal.valueOf(Double.parseDouble(placeholder)).toEngineeringString());
+        } else digitValueLabel.setText(placeholder);
+        prevDigitValueString += digitValueString + "=";
+        prevDigitValueLabel.setText(prevDigitValueString);
+        NewLine = true;
     }
+
 
     // UI //
 
@@ -275,7 +330,7 @@ public class Controller {
     @FXML
     void initialize() {
         List<Button> numbers = Arrays.asList(one, two, three, four, five, six, seven, ate, nine, zero);
-        List<Button> operators = Arrays.asList(operator_plus, operator_minus, operator_multiply, operator_divide, power, mod);
+        List<Button> operators = Arrays.asList(operator_plus, operator_minus, operator_multiply, operator_divide, power, mod, square, squareroot, ybaseroot, fact);
         //
         numbers.forEach(number -> number.setOnAction(this::onNumberClick));
         operators.forEach(operator -> operator.setOnAction(this::OnOperatorClick));
@@ -283,6 +338,8 @@ public class Controller {
         leftbr.setOnAction(this::onBracketsClick);
         negate.setOnAction(this::Negate);
         dot.setOnAction(this::OnDotClick);
+        pi.setOnAction(this::GetMathPi);
+        exponent.setOnAction(this::GetMathE);
         // UI Buttons
         CE.setOnAction(this::ClearLine); // clear line
         C.setOnAction(this::ClearExpression); // clear whole string
@@ -290,51 +347,6 @@ public class Controller {
         equals2.setOnAction(this::onEqualsClick); // two identical buttons 2
         SecF.setOnAction(this::OnSecondFunctionClick);
         SecFend.setOnAction(this::OnSecondFunctionClick);
-        /*
-        fact.setOnAction(event -> {
-            if (digitValueLabel.getText().equals("0")) {
-                digitValueString = "1";
-            } else {
-                digitValueString = digitValueLabel.getText();
-                BigDecimal FactRes = BigDecimal.ONE;
-                for (int factor = 2; factor <= Integer.parseInt(digitValueString); factor++) {
-                    FactRes = FactRes.multiply(BigDecimal.valueOf(factor));
-                }
-                digitValueString = FactRes.stripTrailingZeros().toPlainString();
-            }
-            digitValueLabel.setText(digitValueString);
-            prevDigitValue = String.format("fact(%s)", digitValueLabel.getText());
-            prevDigitValueString.setText(prevDigitValue);
-            result = BigDecimal.ZERO;
-        });
-        square.setOnAction(event -> {
-            digitValueString = BigDecimal.valueOf(Double.parseDouble(digitValueLabel.getText())).pow(2).stripTrailingZeros().toPlainString();
-            digitValueLabel.setText(digitValueString);
-            prevDigitValue = String.format("sqr(%s)", digitValueLabel.getText());
-            prevDigitValueString.setText(prevDigitValue);
-            result = BigDecimal.ZERO;
-        });
-        ybaseroot.setOnAction(this::OnOperator);
-        squareroot.setOnAction(event -> {
-            digitValueString = BigDecimal.valueOf(Double.parseDouble(digitValueLabel.getText())).sqrt(new MathContext(31)).stripTrailingZeros().toPlainString();
-            prevDigitValue = String.format("sqrt(%s)", digitValueLabel.getText());
-            digitValueLabel.setText(digitValueString);
-            prevDigitValueString.setText(prevDigitValue);
-            result = BigDecimal.valueOf(0);
-        });
-        pi.setOnAction(event -> {
-            digitValueString = String.valueOf(Math.PI);
-            digitValueLabel.setText(digitValueString);
-            newLine = true;
-            result = BigDecimal.ZERO;
-        });
-        exponent.setOnAction(event -> {
-            digitValueString = String.valueOf(Math.E);
-            digitValueLabel.setText(digitValueString);
-            newLine = true;
-            result = BigDecimal.ZERO;
-        });
-         */
     }
 
 
