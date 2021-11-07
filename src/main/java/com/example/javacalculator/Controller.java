@@ -109,6 +109,9 @@ public class Controller {
     private void onNumberClick(ActionEvent event) {
         if ((digitValueString.equals("0")) && (((Button) event.getSource()).getText().equals("0")) && !FloatingPoint)
             return;
+        if (digitValueString.equals("0")) {
+            digitValueString = "";
+        }
         if (NewLine) {
             ClearExpression(event);
             NewLine = false;
@@ -119,6 +122,7 @@ public class Controller {
     }
 
     private void ClearLine(ActionEvent event) {
+        FloatingPoint = false;
         digitValueString = "";
         digitResultedValueString = "";
         digitValueLabel.setText("0");
@@ -127,15 +131,14 @@ public class Controller {
     private void ClearExpression(ActionEvent event) {
         resultedValueString = "";
         prevDigitValueString = "";
-        digitValueString = "";
-        digitResultedValueString = "";
         prevDigitValueLabel.setText(prevDigitValueString);
-        digitValueLabel.setText("0");
+        ClearLine(event);
     }
 
     private void OnOperatorClick(ActionEvent event) {
         String lastSymbol = (prevDigitValueString.length() > 1) ? prevDigitValueString.substring(prevDigitValueString.length() - 1) : "";
         String operator = ((Button) event.getSource()).getText();
+        FloatingPoint = false;
         if (!digitValueString.isEmpty()) {
             ;
         } else if (Arrays.asList(new String[]{"+", "-", "×", "÷"}).contains(lastSymbol)) {
@@ -211,7 +214,12 @@ public class Controller {
     }
 
     private void OnDotClick(ActionEvent event) {
-
+        if (!FloatingPoint) {
+            digitResultedValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueString += (!digitValueString.equals("")) ? "." : "0.";
+            digitValueLabel.setText(digitValueString);
+            FloatingPoint = true;
+        }
     }
 
     // UI //
