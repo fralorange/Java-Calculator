@@ -240,7 +240,6 @@ public class Controller {
                 resultedValueString += "!";
             }
         }
-        ;
         prevDigitValueLabel.setText(prevDigitValueString);
     }
 
